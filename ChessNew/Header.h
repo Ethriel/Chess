@@ -204,39 +204,40 @@ public:
 	void fillBoard();
 	void fillTestBoard();
 	void printBoard();
-	bool validateBorders(int fromX, int fromY, int toX, int toY);
 	string getColor(int x, int y) const;
 	Figure* getFigure(int x, int y) const;
 	Coord getWhiteKing() const;
 	Coord getBlackKing() const;
-	int switchCoord(char coord);
-	void setFigures(Figure*& from, Figure*& to, int fromX, int fromY, int toX, int toY);
-	void setCoords(int fromX, int fromY, int toX, int toY);
-	void move(int fromX, int fromY, int toX, int toY);
-	void attack(int fromX, int fromY, int toX, int toY);
-	void attackOnMove(int moveX, int moveY, int attFromX, int attFromY, int attToX, int attToY);
-	void eraseDefender(int attX, int attY, int defX, int defY);
-	void swapCoordsAttack(int fromX, int fromY, int toX, int toY);
-	void swapCoordsMove(int fromX, int fromY, int toX, int toY);
-	void validateInput(int& fromX, int& fromY, int& toX, int& toY, string player);
-	bool attackOrMove(int fromX, int fromY, int toX, int toY, string player);
-	bool tryTakeOnMove(int fromX, int fromY, int toX, int toY, string player);
-	void play();
-	bool check(int attX, int attY);
-	bool checkMate(int attPosX, int attPosY);
-	bool canAttackerBeTaken(int attX, int attY);
-	bool canKingBeCovered(vector<Coord> attWay, string attacker);
-	bool canKingMove(vector<Coord> attWay, string attacker);
-	bool checkTheCell(CELL_FIGURE figure);
-	bool validateChange(int limit, int toX);
-	void changeFigure(int toX, int toY, string player);
-	bool stalemate(string player);
-	void validateAnyStates(int fromX, int fromY, int attX, int attY, int pawnX, string player);
-	void castling(int fromX, int fromY, int toX, int toY, string player);
-	void longCastling(int fromX, int fromY, int toX, int toY, string player);
-	void shortCastling(int fromX, int fromY, int toX, int toY, string player);
-	bool validateCastling(int fromX, int fromY, int toX, int toY, string player);
-	void printCoords();
+	bool validateBorders(int fromX, int fromY, int toX, int toY); // ok
+	void fillKingPossMove(vector<Coord>& kingPossMoves, int kingX, int kingY); // ok
+	int switchCoord(char coord); // ok
+	void setCoords(int fromX, int fromY, int toX, int toY); // ok
+	void setNewCoords(int oldX, int oldY, int newX, int newY); // ok
+	void move(int fromX, int fromY, int toX, int toY); // ok
+	void attack(int fromX, int fromY, int toX, int toY); // ok
+	void attackOnMove(int moveX, int moveY, int attFromX, int attFromY, int attToX, int attToY); // ok
+	void eraseDefender(int attX, int attY, int defX, int defY); // ok
+	void swapCoordsAttack(int fromX, int fromY, int toX, int toY); // ok
+	void swapCoordsMove(int fromX, int fromY, int toX, int toY); // ok
+	void validateInput(int& fromX, int& fromY, int& toX, int& toY, string player); // ok
+	bool attackOrMove(int fromX, int fromY, int toX, int toY, string player); //ok
+	bool tryTakeOnMove(int fromX, int fromY, int toX, int toY, string player); // ok
+	void play(); // ok
+	bool check(int attX, int attY); // ok
+	bool checkMate(int attPosX, int attPosY); // ok
+	bool canAttackerBeTaken(int attX, int attY); // ok
+	bool canKingBeCovered(vector<Coord> attWay, string attacker); // ok
+	bool canKingMove(string attacker); // ok
+	bool checkTheCell(CELL_FIGURE figure); // ok
+	bool validateChange(int limit, int toX); // ok
+	void changeFigure(int toX, int toY, string player); // ok
+	bool stalemate(string player); // ok
+	void validateAnyStates(int fromX, int fromY, int attX, int attY, int pawnX, string player); // ok
+	void castling(int fromX, int fromY, int toX, int toY, string player); // ok
+	void longCastling(int fromX, int fromY, int toX, int toY, string player); // ok
+	void shortCastling(int fromX, int fromY, int toX, int toY, string player); // ok
+	bool validateCastling(int fromX, int fromY, int toX, int toY, string player); // ok
+	void printCoords(vector<Coord> coords); // ok
 private:
 	Figure* board[8][8];
 	Figure* space;
@@ -255,3 +256,4 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY);
 bool validateHorizontalAttack(Gameboard* g, int fromX, int fromY, int toX, int toY);
 bool validateVerticalAttack(Gameboard* g, int fromX, int fromY, int toX, int toY);
 bool validateDiagonalAttack(Gameboard* g, int fromX, int fromY, int toX, int toY);
+bool validateOutOfRange(int x, int y);

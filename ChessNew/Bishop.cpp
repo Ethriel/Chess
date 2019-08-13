@@ -97,10 +97,12 @@ bool Bishop::validateCheck(Gameboard * g)
 
 void Bishop::fillWay(int fromX, int fromY, int toX, int toY)
 {
+	this->way.clear();
 	int lX, lY, bX, bY;
 	int wayX[8];
 	int wayY[8];
 	int waySize = 0;
+	int x = 0, y = 0;
 	this->setLessBigCoord(fromX, fromY, toX, toY, lX, lY, bX, bY);
 	for (int i = lX; i < bX - 1; i++)
 	{
@@ -111,14 +113,11 @@ void Bishop::fillWay(int fromX, int fromY, int toX, int toY)
 	{
 		wayY[i] = i + 1;
 	}
-
-	for (int i = 0, j = 0; i < waySize; i++)
+	for (int i = 0; i < waySize; i++)
 	{
-		this->way[i].setCoords(wayX[j], wayY[j]);
-		j++;
+		x = wayX[i];
+		y = wayY[i];
+		this->way.push_back(Coord(x, y));
 	}
-	for (int i = waySize; i < way.size(); i++) // fill the rest with -1
-	{
-		this->way[i].setCoords(-1, -1);
-	}
+	this->way.shrink_to_fit();
 }

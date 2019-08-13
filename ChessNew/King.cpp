@@ -63,6 +63,14 @@ bool King::validateMove(Gameboard * g)
 
 bool King::validateMove(Gameboard * g, int toX, int toY)
 {
+	int fromX = from.getX();
+	int fromY = from.getY();
+	int diffX = abs(fromX - toX);
+	int diffY = abs(fromY - toY);
+	if ((diffX != 1 && diffY == 0) || (diffY != 1 && diffX == 0) || (diffX != 1 && diffY != 1))
+		return false;
+	if (validateHorizontal(g, fromX, fromY, toX, toY) || validateVertical(g, fromX, fromY, toX, toY) || validateDiagonal(g, fromX, fromY, toX, toY))
+		return true;
 	return false;
 }
 

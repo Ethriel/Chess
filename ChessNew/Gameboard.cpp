@@ -124,91 +124,78 @@ void Gameboard::fillBoard()
 void Gameboard::fillTestBoard()
 {
 	space = new Space("space", "space", '*', 0, -1, false);
-	/*
-	for (int i = 0; i < 8; i++)
-		for (int j = 0; j < 8; j++)
-		{
-			board[i][j] = new Space("space", "space", '*', 0, -1, false);
-			board[i][j]->setFrom(i, j);
-		}
-
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			if (i == 6 && j == 1)
+			// STALEMATE TEST
+			/*
+			if ((i == 4 && j == 1) || (i == 3 && j == 2) || (i == 2 && j == 7))
 			{
-				board[i][j] = new Pawn("pawn", "white", 'P', 2, 0, false);
+				board[i][j] = new Pawn("pawn", "white", 'P', 1, 0, false);
 				white.push_back(Coord(i, j));
-				continue;
 			}
-			if (i == 1 && j == 6)
+			else if ((i == 3 && j == 1) || (i == 2 && j == 2))
 			{
-				board[i][j] = new Pawn("pawn", "black", 'p', 2, 7, false);
+				board[i][j] = new Pawn("pawn", "black", 'p', 1, 7, false);
 				black.push_back(Coord(i, j));
-				continue;
 			}
-			if (i == 7 && j == 4)
-			{
-				board[i][j] = new King("king", "white", 'K', 1, -1, false);
-				white.push_back(Coord(i, j));
-				whiteKing.setCoords(i, j);
-				continue;
-			}
-			if (i == 1 && j == 4)
+			else if (i == 0 && j == 7)
 			{
 				board[i][j] = new King("king", "black", 'k', 1, -1, false);
 				black.push_back(Coord(i, j));
 				blackKing.setCoords(i, j);
-				continue;
 			}
-			board[i][j] = new Space("space", "space", '*', 0, -1, false);
-			spaces.push_back(Coord(i, j));
+			else if (i == 2 && j == 5)
+			{
+				board[i][j] = new King("king", "white", 'K', 1, -1, false);
+				white.push_back(Coord(i, j));
+				whiteKing.setCoords(i, j);
+			}
+			else if (i == 6 && j == 2)
+			{
+				board[i][j] = new Queen("queen", "white", 'Q', 8, -1, false);
+				white.push_back(Coord(i, j));
+			}
+			else
+			{
+				board[i][j] = new Space("space", "space", '*', 0, -1, false);
+				spaces.push_back(Coord(i, j));
+			}
 			board[i][j]->setFrom(i, j);
-		}
-		
-	}
-	*/
-	for (int i = 0; i < 8; i++)
-	{
-		for (int j = 0; j < 8; j++)
-		{
-			if (i == 4 && j == 1)
+			*/
+			if ((i == 3 && j == 0) || (i == 3 && j == 2) || (i == 1 && j == 5))
 			{
-				board[i][j] = new Pawn("pawn", "black", 'p', 2, 7, false);
+				board[i][j] = new Pawn("pawn", "black", 'p', 1, 7, false);
 				black.push_back(Coord(i, j));
-				board[i][j]->setFrom(i, j);
-				continue;
 			}
-			if (i == 6 && j == 2)
-			{
-				board[i][j] = new Pawn("pawn", "white", 'P', 2, 0, false);
-				white.push_back(Coord(i, j));
-				board[i][j]->setFrom(i, j);
-				continue;
-			}
-			if (i == 0 && j == 3)
-			{
-				board[i][j] = new King("king", "black", 'k', 1, -1, false);
-				black.push_back(Coord(i, j));
-				blackKing.setCoords(i, j);
-				continue;
-			}
-			if (i == 7 && j == 3)
-			{
-				board[i][j] = new King("king", "white", 'K', 1, -1, false);
-				white.push_back(Coord(i, j));
-				whiteKing.setCoords(i, j);
-				continue;
-			}
-			if (i == 4 && j == 4)
+			else if (i == 4 && j == 1)
 			{
 				board[i][j] = new Bishop("bishop", "white", 'B', 8, -1, false);
 				white.push_back(Coord(i, j));
-				continue;
 			}
-			board[i][j] = new Space("space", "space", '*', 0, -1, false);
-			spaces.push_back(Coord(i, j));
+			else if (i == 4 && j == 2)
+			{
+				board[i][j] = new Rook("rook", "white", 'R', 8, -1, false);
+				white.push_back(Coord(i, j));
+			}
+			else if (i == 7 && j == 4)
+			{
+				board[i][j] = new King("king", "white", 'K', 1, -1, false);
+				white.push_back(Coord(i, j));
+				whiteKing.setCoords(i, j);
+			}
+			else if (i == 0 && j == 4)
+			{
+				board[i][j] = new King("king", "black", 'k', 1, -1, false);
+				black.push_back(Coord(i, j));
+				blackKing.setCoords(i, j);
+			}
+			else
+			{
+				board[i][j] = new Space("space", "space", '*', 0, -1, false);
+				spaces.push_back(Coord(i, j));
+			}
 			board[i][j]->setFrom(i, j);
 		}
 	}
@@ -254,14 +241,6 @@ void Gameboard::printBoard()
 	SetConsoleTextAttribute(hConsole, 15);
 }
 
-bool Gameboard::validateBorders(int fromX, int fromY, int toX, int toY)
-{
-	if (fromX < 0 || fromY < 0 || toX > 7 || toY > 7)
-		return false;
-
-	return true;
-}
-
 string Gameboard::getColor(int x, int y) const
 {
 	return board[x][y]->getColor();
@@ -282,6 +261,100 @@ Coord Gameboard::getBlackKing() const
 	return blackKing;
 }
 
+bool Gameboard::validateBorders(int fromX, int fromY, int toX, int toY)
+{
+	if (fromX < 0 || fromY < 0 || toX > 7 || toY > 7)
+		return false;
+
+	return true;
+}
+
+void Gameboard::fillKingPossMove(vector<Coord>& kingPossMoves, int kingX, int kingY) // adds only empty cells
+{
+	if(!kingPossMoves.empty())
+		kingPossMoves.clear();
+	string type;
+	CELL_FIGURE figure;
+	int x = 0;
+	int y = 0;
+	// left and right points
+	x = kingX;
+	y = kingY + 1;
+	if (!(y < 0 || y > 7))
+	{
+		type = board[x][y]->getColor();
+		figure = board[x][y]->chekCell(x, y, type);
+		if(figure == EMPTY)
+			kingPossMoves.push_back(Coord(x, y));
+	}
+	y = kingY - 1;
+	if (!(y < 0 || y > 7))
+	{
+		type = board[x][y]->getColor();
+		figure = board[x][y]->chekCell(x, y, type);
+		if (figure == EMPTY)
+			kingPossMoves.push_back(Coord(x, y));
+	}
+	// top and bot
+	y = kingY;
+	x = kingX + 1;
+	if (!(x < 0 || x > 7))
+	{
+		type = board[x][y]->getColor();
+		figure = board[x][y]->chekCell(x, y, type);
+		if (figure == EMPTY)
+			kingPossMoves.push_back(Coord(x, y));
+	}
+	x = kingX - 1;
+	if (!(x < 0 || x > 7))
+	{
+		type = board[x][y]->getColor();
+		figure = board[x][y]->chekCell(x, y, type);
+		if (figure == EMPTY)
+			kingPossMoves.push_back(Coord(x, y));
+	}
+	// left bot corner
+	x = kingX - 1;
+	y = kingY - 1;
+	if (!(y < 0 || y > 7 || x < 0 || x > 7))
+	{
+		type = board[x][y]->getColor();
+		figure = board[x][y]->chekCell(x, y, type);
+		if (figure == EMPTY)
+			kingPossMoves.push_back(Coord(x, y));
+	}
+	// right bot corner
+	x = kingX + 1;
+	y = kingY + 1;
+	if (!(y < 0 || y > 7 || x < 0 || x > 7))
+	{
+		type = board[x][y]->getColor();
+		figure = board[x][y]->chekCell(x, y, type);
+		if (figure == EMPTY)
+			kingPossMoves.push_back(Coord(x, y));
+	}
+	// left bot corner
+	x = kingX + 1;
+	y = kingY - 1;
+	if (!(y < 0 || y > 7 || x < 0 || x > 7))
+	{
+		type = board[x][y]->getColor();
+		figure = board[x][y]->chekCell(x, y, type);
+		if (figure == EMPTY)
+			kingPossMoves.push_back(Coord(x, y));
+	}
+	// right top corner
+	x = kingX - 1;
+	y = kingY + 1;
+	if (!(y < 0 || y > 7 || x < 0 || x > 7))
+	{
+		type = board[x][y]->getColor();
+		figure = board[x][y]->chekCell(x, y, type);
+		if (figure == EMPTY)
+			kingPossMoves.push_back(Coord(x, y));
+	}
+}
+
 int Gameboard::switchCoord(char coord)
 {
 	switch (coord)
@@ -290,31 +363,24 @@ int Gameboard::switchCoord(char coord)
 	case 'A':
 		return 0;
 	case 'b':
-		return 1;
-	case 'c':
-		return 2;
-	case 'd':
-		return 3;
-	case 'e':
-		return 4;
-	case 'f':
-		return 5;
-	case 'g':
-		return 6;
-	case 'h':
-		return 7;
 	case 'B':
 		return 1;
+	case 'c':
 	case 'C':
 		return 2;
+	case 'd':
 	case 'D':
 		return 3;
+	case 'e':
 	case 'E':
 		return 4;
+	case 'f':
 	case 'F':
 		return 5;
+	case 'g':
 	case 'G':
 		return 6;
+	case 'h':
 	case 'H':
 		return 7;
 	default:
@@ -323,20 +389,27 @@ int Gameboard::switchCoord(char coord)
 	return -1;
 }
 
-void Gameboard::setFigures(Figure *& from, Figure *& to, int fromX, int fromY, int toX, int toY)
-{
-	from = board[fromX][fromY];
-	to = board[toX][toY];
-}
-
 void Gameboard::setCoords(int fromX, int fromY, int toX, int toY)
 {
 	board[fromX][fromY]->setFrom(fromX, fromY);
 	board[fromX][fromY]->setTo(toX, toY);
 }
 
+void Gameboard::setNewCoords(int oldX, int oldY, int newX, int newY)
+{
+	board[oldX][oldY]->setFromTo(newX, newY, newX, newY);
+}
+
 void Gameboard::move(int fromX, int fromY, int toX, int toY)
 {
+	string player = board[fromX][fromY]->getColor();
+	if (board[fromX][fromY]->getName() == "king")
+	{
+		if (player == "white")
+			whiteKing.setCoords(toX, toY);
+		if (player == "black")
+			blackKing.setCoords(toX, toY);
+	}
 	board[fromX][fromY]->setHasMoved(true);
 	swapCoordsMove(fromX, fromY, toX, toY);
 	board[fromX][fromY]->setNewFrom(toX, toY); // new fromCoords for fromFigure = toCoords of toFigure
@@ -346,6 +419,27 @@ void Gameboard::move(int fromX, int fromY, int toX, int toY)
 
 void Gameboard::attack(int fromX, int fromY, int toX, int toY)
 {
+	string player = board[fromX][fromY]->getColor();
+	string opponent;
+	if (player == "white")
+		opponent = "black";
+	else if (player == "black")
+		opponent == "white";
+	else
+		return;
+	if (board[fromX][fromY]->getName() == "king") // if king moves, we need to change his coords
+	{
+		if (player == "white")
+			whiteKing.setCoords(toX, toY);
+		if (player == "black")
+			blackKing.setCoords(toX, toY);
+	}
+	if (board[toX][toY]->getName() == "king") // if a king was attacked after attack validation this is checkmate to an opponent
+	{
+		cout << "Checkmate to " << opponent << " king\n";
+		system("pause");
+		exit(0);
+	}
 	board[fromX][fromY]->setHasMoved(true);
 	swapCoordsAttack(fromX, fromY, toX, toY);
 	board[fromX][fromY]->setNewFrom(toX, toY); // new fromCoords for fromFigure = toCoords of toFigure
@@ -555,7 +649,7 @@ void Gameboard::validateInput(int& fromX, int& fromY, int& toX, int& toY, string
 		cin >> toX;
 	}
 	toX--;
-	while (!validateBorders(fromX, fromY, toX, toY))
+	while (!validateBorders(fromX, fromY, toX, toY)) // validate borders
 	{
 		cout << "Out of borders! Enter again!\n";
 		cout << "From:\n";
@@ -600,7 +694,19 @@ bool Gameboard::attackOrMove(int fromX, int fromY, int toX, int toY, string play
 	if (colorFrom != player) // not player's figure
 		return false;
 	if (colorFrom == colorTo) // player tries to move or attack on his own figure
-		return false;
+	{
+		if ((fromX == toX) && board[fromX][fromY]->getName() == "king" && !check(toX, toY)) // check if it is a castling
+		{
+			setCoords(fromX, fromY, toX, toY);
+			if (validateCastling(fromX, fromY, toX, toY, player))
+			{
+				castling(fromX, fromY, toX, toY, player);
+				return true;
+			}
+		}
+		else
+			return false;
+	}
 	setCoords(fromX, fromY, toX, toY);
 	if ((colorFrom != colorTo) && (colorTo == "space")) // if colors are not equal and destinition is space - move
 	{
@@ -615,6 +721,13 @@ bool Gameboard::attackOrMove(int fromX, int fromY, int toX, int toY, string play
 				}
 				else
 					return true;
+			}
+			if (from->getName() == "king")
+			{
+				if (!canKingMove(opponent))
+				{
+					return false;
+				}
 			}
 			move(fromX, fromY, toX, toY);
 			return true;
@@ -739,23 +852,28 @@ bool Gameboard::checkMate(int attPosX, int attPosY)
 	string color; // enemy king color
 	string attColor = board[attPosX][attPosY]->getColor(); // attacker color
 	string attName = board[attPosX][attPosY]->getName(); // attacker name
-	vector<Coord> way = board[attPosX][attPosY]->getWay(); // attacker way
+	vector<Coord> way; // attacker way
 	if (attColor == "white")
 		color = "black";
 	if (attColor == "black")
 		color = "white";
 	if (check(attPosX, attPosY)) // if check - validate possible variants to save king
 	{
+		way = board[attPosX][attPosY]->getWay();
+		system("cls");
+		printBoard();
+		cout << "Check to " << color << " king\n";
+		system("pause");
 		if (!canAttackerBeTaken(attPosX, attPosY)) // try to take down the attacker
 		{
 			if (attName == "knight" || attName == "pawn") // if can't and it is pawn or knight - checkmate
 				return true;
 			if (!canKingBeCovered(way, attColor)) // if can't - try to cover king
 			{
-				if (canKingMove(way, attColor)) // can king move? yes? then no checkmate
+				if (canKingMove(attColor)) // can king move? no checkmate
 					return false;
 				else
-					return true; //no? checkmate
+					return true; // king can't move? checkmate
 				return true;
 			}
 			else
@@ -792,106 +910,78 @@ bool Gameboard::canAttackerBeTaken(int attX, int attY)
 
 bool Gameboard::canKingBeCovered(vector<Coord> attWay, string attacker)
 {
-	int attX, attY;
+	int attX = 0, attY = 0, defX = 0, defY = 0;
 	Gameboard* g = this;
-
-	for (int i = 0; i < 8; i++)
+	vector<Coord> defender;
+	if (attacker == "white")
+		defender = black;
+	else if (attacker == "black")
+		defender = white;
+	else
+		return false;
+	for (int i = 0; i < defender.size(); i++) // check each defender's side figure for ability to move on eny of attacker's way position
 	{
-		for (int j = 0; j < 8; j++)
+		defX = defender[i].getX();
+		defY = defender[i].getY();
+		for (int j = 0; j < attWay.size(); j++) // get attacker's way position coordinates
 		{
-			for (int k = 0; k < attWay.size(); k++)
-			{
-				attX = attWay[k].getX();
-				attY = attWay[k].getY();
-				if (board[i][j]->getColor() == attacker) // skip enemies
-					continue;
-				if (board[i][j]->getColor() == "space") // skip spaces
-					continue;
-				if (attX == -1 || attY == -1)
-					break;
-				if (board[i][j]->validateMove(g, attX, attY)) // try to move to any of attaker's way coords
-					return true;
-			}
+			attX = attWay[j].getX();
+			attY = attWay[j].getY();
+			if (attX == -1 || attY == -1)
+				break;
+			if (board[defX][defY]->validateMove(g, attX, attY))
+				return true;
 		}
 	}
 	return false;
 }
 
-bool Gameboard::canKingMove(vector<Coord> attWay, string attacker)
+bool Gameboard::canKingMove(string attacker)
 {
-	CELL_FIGURE cellToCheck;
-	int xMoves[3] = { 0, -1, 1 }; // possible moves by X
-	int yMoves[2] = { -1, 1 }; // possible moves by Y
-	int xCheck = 0, yCheck = 0; // coords to check
+	Gameboard* g = this;
 	int kingX, kingY; // coords of king
-	string kingColor, cellColor;
-	int wayX, wayY; // coords of way of the attacker
+	int kingPossX, kingPossY; // possible coords where king can move
+	vector<Coord> possMoves; // vector of possible king moves
+	vector<Coord> attackerV;
+	int canMove = 0;
+	int attX = 0, attY = 0;
+	Figure* king;
+	Figure* att;
 	if (attacker == "white")
 	{
 		kingX = blackKing.getX();
 		kingY = blackKing.getY();
-		kingColor = "black";
+		attackerV = white;
 	}
 	if (attacker == "black")
 	{
 		kingX = whiteKing.getX();
 		kingY = whiteKing.getY();
-		kingColor = "white";
+		attackerV = black;
 	}
-
-	// king can move to left or to right
-	for (int i = 0; i < 2; i++)
+	king = board[kingX][kingY]; // king, which is under attack
+	fillKingPossMove(possMoves, kingX, kingY); // fill it's possible moves
+	if (possMoves.size() == 0)
+		return true;
+	for (int i = 0; i < possMoves.size(); i++) // check every possible coord
 	{
-		yCheck = kingY + yMoves[i]; // y coord  to check
-		for (int j = 0; j < 3; j++)
+		kingPossX = possMoves[i].getX();
+		kingPossY = possMoves[i].getY();
+		if (king->validateMove(g, kingPossX, kingPossY))
 		{
-			xCheck = kingX + xMoves[j]; // x coord to check
-			if (!validateBorders(xCheck, yCheck, xCheck, yCheck)) // skip out of borders
-				continue;
-			cellColor = board[xCheck][yCheck]->getColor();
-			cellToCheck = board[xCheck][yCheck]->chekCell(xCheck, yCheck, cellColor);
-			if (checkTheCell(cellToCheck)) // cell is empty?
+			canMove++;
+			for (int i = 0; i < attackerV.size(); i++)
 			{
-				for (int k = 0; k < attWay.size(); k++) // check if coords of possible move doesn't cross with coords of way of the attacker
-				{
-					wayX = attWay[k].getX();
-					wayY = attWay[k].getY();
-					if (wayX == -1 || wayY == -1)
-						break;
-					if (xCheck == wayX && yCheck == wayY) // if so - skip
-						continue;
-					else // no? king can move there
-						return true;
-				}
+				attX = attackerV[i].getX();
+				attY = attackerV[i].getY();
+				att = board[attX][attY];
+				if (att->validateMove(g, kingPossX, kingPossY) || att->validateAttack(g, kingPossX, kingPossY))
+					canMove--;
 			}
 		}
 	}
-	// or up or down
-	for (int i = 0; i < 1; i++)
-	{
-		yCheck = kingX;
-		for (int j = 1; j < 2; j++)
-		{
-			xCheck = kingX + xMoves[j];
-			if (!validateBorders(xCheck, yCheck, xCheck, yCheck))
-				continue;
-			cellToCheck = board[kingX][kingY]->chekCell(xCheck, yCheck, kingColor);
-			if (checkTheCell(cellToCheck))
-			{
-				for (int k = 0; k < attWay.size(); k++)
-				{
-					wayX = attWay[k].getX();
-					wayY = attWay[k].getY();
-					if (wayX == -1 || wayY == -1)
-						break;
-					if (xCheck == wayX && yCheck == wayY)
-						continue;
-					else
-						return true;
-				}
-			}
-		}
-	}
+	if (canMove >= 1)
+		return true;
 	return false;
 }
 
@@ -1007,12 +1097,11 @@ void Gameboard::changeFigure(int toX, int toY, string player)
 
 bool Gameboard::stalemate(string player)
 {
-	system("cls");
-	printBoard();
 	Gameboard* g(this); // copy of current gameboard to work with
 	vector<Coord> attacker; // vector of coords of an attacker
 	vector<Coord> defender; // vector of coords of a defender
 	vector<Coord> empties = spaces; // vector of spaces
+	string opponent;
 	int attX = 0, attY = 0, defX = 0, defY = 0, emX = 0, emY = 0; // tmp vars
 	int cantMove = 0; // quantity of figures that can't move
 	Figure* fig;
@@ -1021,12 +1110,20 @@ bool Gameboard::stalemate(string player)
 	{
 		attacker = black;
 		defender = white;
+		opponent = "black";
 	}
 	if (player == "black")
 	{
 		attacker = white;
 		defender = black;
+		opponent = "white";
 	}
+
+	if (/*!canKingMove(opponent) ||*/ !canKingMove(player))
+	{
+		return true;
+	}
+
 	for (int i = 0; i < defender.size(); i++) // check defenders figures for an ability to move
 	{
 		defX = defender[i].getX(); // def X
@@ -1050,11 +1147,11 @@ bool Gameboard::stalemate(string player)
 					}
 					else
 					{
-						//g->move(emX, emY, defX, defY); // move back current figure
+						g->move(emX, emY, defX, defY); // move back current figure
 						return false; // can move and no check in process? no stalemate
 					}
 				}
-				
+
 			}
 		}
 	}
@@ -1068,13 +1165,6 @@ void Gameboard::validateAnyStates(int fromX, int fromY, int attX, int attY, int 
 		opponent = "black";
 	if (player == "black")
 		opponent = "white";
-	if ((fromX == attX) && board[fromX][fromY]->getName() == "king" && !check(attX, attY)) // check if it is a castling
-	{
-		if (validateCastling(fromX, fromY, attX, attY, player))
-		{
-			castling(fromX, fromY, attX, attY, player);
-		}
-	}
 	if (checkMate(attX, attY))
 	{
 		system("cls");
@@ -1082,12 +1172,6 @@ void Gameboard::validateAnyStates(int fromX, int fromY, int attX, int attY, int 
 		cout << "Checkmate to " << opponent << " king\n";
 		system("pause");
 		exit(0);
-	}
-	if (check(attX, attY))
-	{
-		cout << "Check to " << opponent << " king\n";
-		system("pause");
-		return;
 	}
 	if (validateChange(board[attX][attY]->getLimit(), pawnX))
 	{
@@ -1106,14 +1190,23 @@ void Gameboard::validateAnyStates(int fromX, int fromY, int attX, int attY, int 
 			system("pause");
 			exit(0);
 		}
+		
+		if (stalemate(opponent))
+		{
+			system("cls");
+			printBoard();
+			cout << "Stalemate. Game over\n";
+			system("pause");
+			exit(0);
+		}
 	}
 }
 
 void Gameboard::castling(int fromX, int fromY, int toX, int toY, string player)
 {
-	if (fromX > toX)
+	if (fromY > toY)
 		longCastling(fromX, fromY, toX, toY, player);
-	if (fromX < toX)
+	if (fromY < toY)
 		shortCastling(fromX, fromY, toX, toY, player);
 }
 
@@ -1121,55 +1214,64 @@ void Gameboard::longCastling(int fromX, int fromY, int toX, int toY, string play
 {
 	int kingY = fromY - 2; // new king Y coord
 	int rookY = toY + 3; // new rook coord
-	int checkX = 0, checkY = 0; // tmp vars for checks
-	board[fromX][fromY]->setFrom(fromX, kingY); // set new coords for king
-	board[toX][toY]->setFrom(toX, rookY); // set new coords for rook
+	int checkX = 0, checkY = 0, oldX = 0, oldY = 0; // tmp vars for checks
+	vector<Coord> side;
+	setNewCoords(fromX, fromY, fromX, kingY); // set new coords for king
+	setNewCoords(toX, toY, toX, rookY); // set new coords for rook
 	if (player == "white")
 	{
-		for (int i = 0; i < white.size(); i++) // find old king's coords and replace them
-		{
-			checkX = white[i].getX();
-			checkY = white[i].getY();
-			if (checkX == fromX && checkY == fromY)
-			{
-				white[i].setCoords(fromX, kingY);
-				break;
-			}
-		}
-		for (int i = 0; i < white.size(); i++) // find old rook's coords and replace them
-		{
-			checkX = white[i].getX();
-			checkY = white[i].getY();
-			if (checkX == toX && checkY == toY)
-			{
-				white[i].setCoords(toX, rookY);
-				break;
-			}
-		}
+		side = white;
+		whiteKing.setCoords(fromX, kingY);
 	}
 	if (player == "black")
 	{
-		for (int i = 0; i < black.size(); i++) // find old king's coords and replace them
+		side = black;
+		blackKing.setCoords(fromX, kingY);
+	}
+	for (int i = 0; i < side.size(); i++) // find old king's coords and replace them
+	{
+		checkX = side[i].getX();
+		checkY = side[i].getY();
+		if (checkX == fromX && checkY == fromY)
 		{
-			checkX = black[i].getX();
-			checkY = black[i].getY();
-			if (checkX == fromX && checkY == fromY)
-			{
-				black[i].setCoords(fromX, kingY);
-				break;
-			}
-		}
-		for (int i = 0; i < black.size(); i++)  // find old rook's coords and replace them
-		{
-			checkX = black[i].getX();
-			checkY = black[i].getY();
-			if (checkX == toX && checkY == toY)
-			{
-				black[i].setCoords(toX, rookY);
-				break;
-			}
+			side[i].setCoords(fromX, kingY);
+			break;
 		}
 	}
+	for (int i = 0; i < spaces.size(); i++) // find old space's coords and replace them
+	{
+		checkX = spaces[i].getX();
+		checkY = spaces[i].getY();
+		if (checkX == fromX && checkY == kingY)
+		{
+			spaces[i].setCoords(fromX, fromY);
+			break;
+		}
+	}
+	for (int i = 0; i < side.size(); i++) // find old rook's coords and replace them
+	{
+		checkX = side[i].getX();
+		checkY = side[i].getY();
+		if (checkX == toX && checkY == toY)
+		{
+			side[i].setCoords(toX, rookY);
+			break;
+		}
+	}
+	for (int i = 0; i < spaces.size(); i++) // find old space's coords and replace them
+	{
+		checkX = spaces[i].getX();
+		checkY = spaces[i].getY();
+		if (checkX == toX && checkY == rookY)
+		{
+			spaces[i].setCoords(toX, toY);
+			break;
+		}
+	}
+	if (player == "white")
+		white = side;
+	if (player == "black")
+		black = side;
 	swap(board[fromX][fromY], board[fromX][kingY]); // set king to a new position
 	swap(board[toX][toY], board[toX][rookY]); // set rook to a new position
 }
@@ -1179,54 +1281,63 @@ void Gameboard::shortCastling(int fromX, int fromY, int toX, int toY, string pla
 	int kingY = fromY + 2; // new king Y coord
 	int rookY = toY - 2; // new rook coord
 	int checkX = 0, checkY = 0; // tmp vars for checks
-	board[fromX][fromY]->setFrom(fromX, kingY); // set new coords for king
-	board[toX][toY]->setFrom(toX, rookY); // set new coords for rook
+	vector<Coord> side;
+	setNewCoords(fromX, fromY, fromX, kingY); // set new coords for king
+	setNewCoords(toX, toY, toX, rookY); // set new coords for rook
 	if (player == "white")
 	{
-		for (int i = 0; i < white.size(); i++) // find old king's coords and replace them
-		{
-			checkX = white[i].getX();
-			checkY = white[i].getY();
-			if (checkX == fromX && checkY == fromY)
-			{
-				white[i].setCoords(fromX, kingY);
-				break;
-			}
-		}
-		for (int i = 0; i < white.size(); i++) // find old rook's coords and replace them
-		{
-			checkX = white[i].getX();
-			checkY = white[i].getY();
-			if (checkX == toX && checkY == toY)
-			{
-				white[i].setCoords(toX, rookY);
-				break;
-			}
-		}
+		side = white;
+		whiteKing.setCoords(fromX, kingY);
 	}
 	if (player == "black")
 	{
-		for (int i = 0; i < black.size(); i++) // find old king's coords and replace them
+		side = black;
+		blackKing.setCoords(fromX, kingY);
+	}
+	for (int i = 0; i < side.size(); i++) // find old king's coords and replace them
+	{
+		checkX = side[i].getX();
+		checkY = side[i].getY();
+		if (checkX == fromX && checkY == fromY)
 		{
-			checkX = black[i].getX();
-			checkY = black[i].getY();
-			if (checkX == fromX && checkY == fromY)
-			{
-				black[i].setCoords(fromX, kingY);
-				break;
-			}
-		}
-		for (int i = 0; i < black.size(); i++)  // find old rook's coords and replace them
-		{
-			checkX = black[i].getX();
-			checkY = black[i].getY();
-			if (checkX == toX && checkY == toY)
-			{
-				black[i].setCoords(toX, rookY);
-				break;
-			}
+			side[i].setCoords(fromX, kingY);
+			break;
 		}
 	}
+	for (int i = 0; i < spaces.size(); i++) // find old space's coords and replace them
+	{
+		checkX = spaces[i].getX();
+		checkY = spaces[i].getY();
+		if (checkX == fromX && checkY == kingY)
+		{
+			spaces[i].setCoords(fromX, fromY);
+			break;
+		}
+	}
+	for (int i = 0; i < side.size(); i++) // find old rook's coords and replace them
+	{
+		checkX = side[i].getX();
+		checkY = side[i].getY();
+		if (checkX == toX && checkY == toY)
+		{
+			side[i].setCoords(toX, rookY);
+			break;
+		}
+	}
+	for (int i = 0; i < spaces.size(); i++) // find old space's coords and replace them
+	{
+		checkX = spaces[i].getX();
+		checkY = spaces[i].getY();
+		if (checkX == toX && checkY == rookY)
+		{
+			spaces[i].setCoords(toX, toY);
+			break;
+		}
+	}
+	if (player == "white")
+		white = side;
+	if (player == "black")
+		black = side;
 	swap(board[fromX][fromY], board[fromX][kingY]); // set king to a new position
 	swap(board[toX][toY], board[toX][rookY]); // set rook to a new position
 }
@@ -1240,7 +1351,6 @@ bool Gameboard::validateCastling(int fromX, int fromY, int toX, int toY, string 
 	vector<Coord> between;
 	vector<Coord> attacker;
 	int checkY = 0, lY = 0, bY = 0, attX = 0, attY = 0, lineX = 0, lineY = 0; // tmp vars for further checks
-	bool canBeAttacked = false;
 	if (fromX != toX || fromY == toY) // if not horizontal
 		return false;
 	if (player == "white" && (fromX != 7 || toX != 7)) // if white's figures are not at 7-th line
@@ -1284,39 +1394,23 @@ bool Gameboard::validateCastling(int fromX, int fromY, int toX, int toY, string 
 	{
 		attX = attacker[i].getX();
 		attY = attacker[i].getY();
+		att = board[attX][attY];
 		for (int j = 0; j < between.size(); j++)
 		{
 			lineX = between[j].getX();
 			lineY = between[j].getY();
-			if (board[attX][attY]->validateAttack(g, lineX, lineY)) // if any cell of the line is under attack - false
+			if (att->validateAttack(g, lineX, lineY)) // if any cell of the line is under attack - false
 				return false;
 		}
-		if (canBeAttacked == false)
-			return true;
 	}
-	return false;
+	return true;
 }
 
-void Gameboard::printCoords()
+void Gameboard::printCoords(vector<Coord> coords)
 {
-	cout << "WHITE\n";
-	for (int i = 0; i < white.size(); i++)
+	for (int i = 0; i < coords.size(); i++)
 	{
-		cout << white[i].getX() << " " << white[i].getY() << " -- ";
-	}
-	cout << endl;
-	LINE;
-	cout << "BLACK\n";
-	for (int i = 0; i < black.size(); i++)
-	{
-		cout << black[i].getX() << " " << black[i].getY() << " -- ";
-	}
-	cout << endl;
-	LINE;
-	cout << "SPACES\n";
-	for (int i = 0; i < spaces.size(); i++)
-	{
-		cout << spaces[i].getX() << " " << spaces[i].getY() << " -- ";
+		cout << "(" << coords[i].getX() << "), " << "(" << coords[i].getY() << ")" << endl;
 	}
 	cout << endl;
 	LINE;

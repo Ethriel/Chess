@@ -6,8 +6,10 @@ Figure::Figure()
 
 Figure::Figure(string name, string color, char symb, int moves, int limit, bool hasMoved):name(name), color(color), symb(symb), moves(moves), limit(limit), hasMoved(hasMoved)
 {
+	/*
 	for (int i = 0; i < 8; i++)
 		this->way.push_back(Coord(0, 0));
+		*/
 }
 
 Figure::~Figure()

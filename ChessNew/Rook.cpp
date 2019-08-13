@@ -40,7 +40,6 @@ bool Rook::validateAttack(Gameboard * g, int toX, int toY)
 {
 	int fromX = from.getX();
 	int fromY = from.getY();
-		return false;
 	if (validateHorizontalAttack(g, fromX, fromY, toX, toY) || validateVerticalAttack(g, fromX, fromY, toX, toY))
 	{
 		this->fillWay(fromX, fromY, toX, toY);
@@ -102,6 +101,7 @@ void Rook::fillWay(int fromX, int fromY, int toX, int toY)
 	int wayX[8];
 	int wayY[8];
 	int waySize = 0;
+	int x = 0, y = 0;
 	this->setLessBigCoord(fromX, fromY, toX, toY, lX, lY, bX, bY);
 	fillX = bY - lY - 1;
 	fillY = bX - lX - 1;
@@ -129,14 +129,11 @@ void Rook::fillWay(int fromX, int fromY, int toX, int toY)
 			wayX[i] = i + 1;
 		}
 	}
-	for (int i = 0, j = 0; i < waySize; i++) // fill way of a figure
+	for (int i = 0; i < waySize; i++)
 	{
-		this->way[i].setCoords(wayX[j], wayY[j]);
-		j++;
+		x = wayX[i];
+		y = wayY[i];
+		this->way.push_back(Coord(x, y));
 	}
-	for (int i = waySize; i < this->way.size(); i++) // fill the rest with -1
-	{
-		this->way[i].setCoords(-1, -1);
-	}
-	fillX;
+	this->way.shrink_to_fit();
 }

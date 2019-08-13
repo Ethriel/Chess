@@ -101,6 +101,7 @@ void Queen::fillWay(int fromX, int fromY, int toX, int toY)
 	int wayX[8];
 	int wayY[8];
 	int waySize = 0;
+	int x = 0, y = 0;
 	this->setLessBigCoord(fromX, fromY, toX, toY, lX, lY, bX, bY);
 	if (lX == bX) // horizontal way
 	{
@@ -137,15 +138,12 @@ void Queen::fillWay(int fromX, int fromY, int toX, int toY)
 		{
 			wayY[i] = i + 1;
 		}
-
-		for (int i = 0, j = 0; i < waySize; i++)
-		{
-			this->way[i].setCoords(wayX[j], wayY[j]);
-			j++;
-		}
 	}
-	for (int i = waySize; i < way.size(); i++) // fill the rest with -1
+	for (int i = 0; i < waySize; i++)
 	{
-		this->way[i].setCoords(-1, -1);
+		x = wayX[i];
+		y = wayY[i];
+		this->way.push_back(Coord(x, y));
 	}
+	this->way.shrink_to_fit();
 }

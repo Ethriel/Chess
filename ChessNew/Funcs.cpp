@@ -101,13 +101,20 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 	string nextColor;
 	Figure* fig;
 	int checkX = fromX, checkY = fromY;
+	int nextX = 0, nextY = 0;
 	// from bot-left to top-right
 	if (fromX > toX && fromY < toY)
 	{
-		while (checkX != toX && checkY != toY)
+		while ((checkX != toX && checkY != toY))
 		{
+			if (validateOutOfRange(checkX, checkY))
+				break;
 			fig = g->getFigure(checkX, checkY);
-			nextColor = g->getColor(checkX - 1, checkY + 1);
+			nextX = checkX - 1;
+			nextY = checkY + 1;
+			if (validateOutOfRange(nextX, nextY))
+				break;
+			nextColor = g->getColor(nextX, nextY);
 			whatOnCell = fig->chekCell(--checkX, ++checkY, nextColor);
 			if (whatOnCell == FRIEND)
 				break;
@@ -120,10 +127,16 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 	// from bot-right to top-left
 	else if (fromX > toX && fromY > toY)
 	{
-		while (checkX != toX && checkY != toY)
+		while ((checkX != toX && checkY != toY))
 		{
+			if (validateOutOfRange(checkX, checkY))
+				break;
 			fig = g->getFigure(checkX, checkY);
-			nextColor = g->getColor(checkX - 1, checkY - 1);
+			nextX = checkX - 1;
+			nextY = checkY - 1;
+			if (validateOutOfRange(nextX, nextY))
+				break;
+			nextColor = g->getColor(nextX, nextY);
 			whatOnCell = fig->chekCell(--checkX, --checkY, nextColor);
 			if (whatOnCell == FRIEND)
 				break;
@@ -136,11 +149,17 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 	// from top-right to bot-left
 	else if (fromX < toX && fromY > toY)
 	{
-		while (checkX != toX && checkY != toY)
+		while ((checkX != toX && checkY != toY))
 		{
+			if (validateOutOfRange(checkX, checkY))
+				break;
 			fig = g->getFigure(checkX, checkY);
-			nextColor = g->getColor(checkX - 1, checkY + 1);
-			whatOnCell = fig->chekCell(--checkX, ++checkY, nextColor);
+			nextX = checkX + 1;
+			nextY = checkY - 1;
+			if (validateOutOfRange(nextX, nextY))
+				break;
+			nextColor = g->getColor(nextX, nextY);
+			whatOnCell = fig->chekCell(++checkX, --checkY, nextColor);
 			if (whatOnCell == FRIEND)
 				break;
 			else if (whatOnCell == ENEMY)
@@ -152,10 +171,16 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 	// from top-left to bot-right
 	else if (fromX < toX && fromY < toY)
 	{
-		while (checkX != toX && checkY != toY)
+		while ((checkX != toX && checkY != toY))
 		{
+			if (validateOutOfRange(checkX, checkY))
+				break;
 			fig = g->getFigure(checkX, checkY);
-			nextColor = g->getColor(checkX + 1, checkY + 1);
+			nextX = checkX + 1;
+			nextY = checkY + 1;
+			if (validateOutOfRange(nextX, nextY))
+				break;
+			nextColor = g->getColor(nextX, nextY);
 			whatOnCell = fig->chekCell(++checkX, ++checkY, nextColor);
 			if (whatOnCell == FRIEND)
 				break;
@@ -208,17 +233,18 @@ bool validateVerticalAttack(Gameboard* g, int fromX, int fromY, int toX, int toY
 
 bool validateDiagonalAttack(Gameboard* g, int fromX, int fromY, int toX, int toY)
 {
+	Figure* fig = g->getFigure(fromX, fromY);
 	// DIAGONAL CHECK: if way free to the point BEFORE destination
 	// diagonal left-right-top
 	if (fromX > toX && fromY < toY && (abs(fromX - toX) == abs(fromY - toY)))
 	{
-		if (validateDiagonal(g, fromX, fromY, toX + 1, toY - 1))
+		if (validateDiagonal(g, fromX, fromY, toX - 1, toY + 1))
 			return true;
 	}
 	// diagonal right-left-bot
 	else if (fromX < toX && fromY > toY && (abs(fromX - toX) == abs(fromY - toY)))
 	{
-		if (validateDiagonal(g, fromX, fromY, toX - 1, toY + 1))
+		if (validateDiagonal(g, fromX, fromY, toX + 1, toY - 1))
 			return true;
 	}
 	// diagonal right-left-top
@@ -233,5 +259,12 @@ bool validateDiagonalAttack(Gameboard* g, int fromX, int fromY, int toX, int toY
 		if (validateDiagonal(g, fromX, fromY, toX - 1, toY - 1))
 			return true;
 	}
+	return false;
+}
+
+bool validateOutOfRange(int x, int y)
+{
+	if (x < 0 || y < 0 || x > 7 || y > 7)
+		return true;
 	return false;
 }
