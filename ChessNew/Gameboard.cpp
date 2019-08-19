@@ -355,40 +355,6 @@ void Gameboard::fillKingPossMove(vector<Coord>& kingPossMoves, int kingX, int ki
 	}
 }
 
-int Gameboard::switchCoord(char coord)
-{
-	switch (coord)
-	{
-	case 'a':
-	case 'A':
-		return 0;
-	case 'b':
-	case 'B':
-		return 1;
-	case 'c':
-	case 'C':
-		return 2;
-	case 'd':
-	case 'D':
-		return 3;
-	case 'e':
-	case 'E':
-		return 4;
-	case 'f':
-	case 'F':
-		return 5;
-	case 'g':
-	case 'G':
-		return 6;
-	case 'h':
-	case 'H':
-		return 7;
-	default:
-		return -1;
-	}
-	return -1;
-}
-
 void Gameboard::setCoords(int fromX, int fromY, int toX, int toY)
 {
 	board[fromX][fromY]->setFrom(fromX, fromY);
@@ -619,6 +585,7 @@ void Gameboard::swapCoordsMove(int fromX, int fromY, int toX, int toY)
 
 void Gameboard::validateInput(int& fromX, int& fromY, int& toX, int& toY, string player)
 {
+	Coord from, to;
 	int turn = 0;
 	if (player == "white")
 		turn = 1;
@@ -626,57 +593,21 @@ void Gameboard::validateInput(int& fromX, int& fromY, int& toX, int& toY, string
 		turn = 2;
 	char fromYc, toYc;
 	cout << "Player " << turn << " enter coordinates of your figure:\n"; // Player selects a figure
-	cin >> fromYc;
-	cin >> fromX;
-	fromY = switchCoord(fromYc);
-	while (!cin.good())
-	{
-		cin.clear();
-		cin.ignore();
-		cout << "Re-enter second coordinate! Must be a number\n";
-		cin >> fromX;
-	}
-	fromX--;
+	cin >> from;
 	cout << "Player " << turn << " enter coordinates where you want to move:\n"; // Player choses position to move to
-	cin >> toYc;
-	cin >> toX;
-	toY = switchCoord(toYc);
-	while (!cin.good())
-	{
-		cin.clear();
-		cin.ignore();
-		cout << "Re-enter second coordinate! Must be a number\n";
-		cin >> toX;
-	}
-	toX--;
+	cin >> to;
 	while (!validateBorders(fromX, fromY, toX, toY)) // validate borders
 	{
 		cout << "Out of borders! Enter again!\n";
 		cout << "From:\n";
-		cin >> fromYc;
-		cin >> fromX;
-		fromY = switchCoord(fromYc);
-		while (!cin.good())
-		{
-			cin.clear();
-			cin.ignore();
-			cout << "Re-enter second coordinate! Must be a number\n";
-			cin >> fromX;
-		}
-		fromX--;
+		cin >> from;
 		cout << "To:\n";
-		cin >> toYc;
-		cin >> toX;
-		toY = switchCoord(toYc);
-		while (!cin.good())
-		{
-			cin.clear();
-			cin.ignore();
-			cout << "Re-enter second coordinate! Must be a number\n";
-			cin >> toX;
-		}
-		toX--;
+		cin >> to;
 	}
+	fromX = from.getX();
+	fromY = from.getY();
+	toX = to.getX();
+	toY = to.getY();
 }
 
 bool Gameboard::attackOrMove(int fromX, int fromY, int toX, int toY, string player)

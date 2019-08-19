@@ -20,9 +20,12 @@ public:
 	int getX() const;
 	int getY() const;
 	bool operator==(Coord& other);
+	friend istream& operator>>(istream& in, Coord& coord);
+	int switchCoord(char coord);
 private:
 	int x;
 	int y;
+	char yC;
 };
 
 enum CELL_FIGURE
@@ -209,7 +212,6 @@ public:
 	Coord getBlackKing() const;
 	bool validateBorders(int fromX, int fromY, int toX, int toY); // ok
 	void fillKingPossMove(vector<Coord>& kingPossMoves, int kingX, int kingY); // ok
-	int switchCoord(char coord); // ok
 	void setCoords(int fromX, int fromY, int toX, int toY); // ok
 	void setNewCoords(int oldX, int oldY, int newX, int newY); // ok
 	void move(int fromX, int fromY, int toX, int toY); // ok

@@ -1,5 +1,21 @@
 #include"Header.h"
 
+istream& operator>>(istream& in, Coord & coord)
+{
+	in >> coord.yC;
+	in >> coord.x;
+	while (!cin.good())
+	{
+		in.clear();
+		in.ignore();
+		cout << "Re-enter second coordinate! Must be a number\n";
+		in >> coord.x;
+	}
+	coord.switchCoord(coord.yC);
+	coord.x--;
+	return in;
+}
+
 bool validateHorizontal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 {
 	CELL_FIGURE whatOnCell;
