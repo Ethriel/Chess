@@ -1134,7 +1134,7 @@ bool Gameboard::stalemate(string player)
 		opponent = "white";
 	}
 
-	if (/*!canKingMove(opponent) ||*/ !canKingMove(player))
+	if (!canKingMove(player))
 	{
 		return true;
 	}
@@ -1166,7 +1166,6 @@ bool Gameboard::stalemate(string player)
 						return false; // can move and no check in process? no stalemate
 					}
 				}
-
 			}
 		}
 	}
@@ -1180,7 +1179,7 @@ void Gameboard::validateAnyStates(int fromX, int fromY, int attX, int attY, int 
 		opponent = "black";
 	if (player == "black")
 		opponent = "white";
-	if (checkMate(attX, attY))
+	if (checkMate(attX, attY)) // is there a checkmate?
 	{
 		system("cls");
 		printBoard();
@@ -1188,16 +1187,16 @@ void Gameboard::validateAnyStates(int fromX, int fromY, int attX, int attY, int 
 		system("pause");
 		exit(0);
 	}
-	if (validateChange(board[attX][attY]->getLimit(), pawnX))
+	if (validateChange(board[attX][attY]->getLimit(), pawnX)) // is there a change pawn to another figure?
 	{
 		changeFigure(attX, attY, player);
 		system("cls");
 		printBoard();
 		return;
 	}
-	if (!check(attX, attY))
+	if (!check(attX, attY)) // is there a check?
 	{
-		if (stalemate(player))
+		if (stalemate(player)) // no? stalemate during player's move?
 		{
 			system("cls");
 			printBoard();
@@ -1206,7 +1205,7 @@ void Gameboard::validateAnyStates(int fromX, int fromY, int attX, int attY, int 
 			exit(0);
 		}
 
-		if (stalemate(opponent))
+		if (stalemate(opponent)) // opponent is in a stalemate situation?
 		{
 			system("cls");
 			printBoard();
@@ -1217,7 +1216,7 @@ void Gameboard::validateAnyStates(int fromX, int fromY, int attX, int attY, int 
 	}
 }
 
-void Gameboard::castling(int fromX, int fromY, int toX, int toY, string player)
+void Gameboard::castling(int fromX, int fromY, int toX, int toY, string player) // swap king and rook
 {
 	if (fromY > toY)
 		longCastling(fromX, fromY, toX, toY, player);
