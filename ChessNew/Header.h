@@ -258,8 +258,6 @@ private:
 	Figure* space;
 	Coord whiteKing;
 	Coord blackKing;
-	Coord from;
-	Coord to;
 	vector<Coord> white;
 	vector<Coord> black;
 	vector<Coord> spaces;
