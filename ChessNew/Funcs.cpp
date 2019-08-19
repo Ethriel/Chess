@@ -11,7 +11,7 @@ istream& operator>>(istream& in, Coord & coord)
 		cout << "Re-enter second coordinate! Must be a number\n";
 		in >> coord.x;
 	}
-	coord.switchCoord(coord.yC);
+	coord.switchCoord();
 	coord.x--;
 	return in;
 }

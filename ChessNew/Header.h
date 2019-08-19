@@ -21,7 +21,7 @@ public:
 	int getY() const;
 	bool operator==(Coord& other);
 	friend istream& operator>>(istream& in, Coord& coord);
-	int switchCoord(char coord);
+	void switchCoord();
 private:
 	int x;
 	int y;
@@ -203,8 +203,8 @@ public:
 	Gameboard();
 	Gameboard(const Gameboard& g);
 	~Gameboard();
-	void fillBoard();
-	void fillTestBoard();
+	void fillBoard(); // main board
+	void fillTestBoard(); // test board for tests
 	void printBoard();
 	string getColor(int x, int y) const;
 	Figure* getFigure(int x, int y) const;
@@ -244,6 +244,8 @@ private:
 	Figure* space;
 	Coord whiteKing;
 	Coord blackKing;
+	Coord from;
+	Coord to;
 	vector<Coord> white;
 	vector<Coord> black;
 	vector<Coord> spaces;

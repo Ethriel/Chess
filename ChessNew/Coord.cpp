@@ -43,36 +43,59 @@ bool Coord::operator==(Coord & other)
 	return (x == other.x && y == other.y);
 }
 
-int Coord::switchCoord(char coord)
+void Coord::switchCoord()
 {
-	switch (coord)
+	switch (this->yC)
 	{
 	case 'a':
 	case 'A':
-		return 0;
+	{
+		this->y = 0;
+		break;
+	}
 	case 'b':
 	case 'B':
-		return 1;
+	{
+		this->y = 1;
+		break;
+	}
 	case 'c':
 	case 'C':
-		return 2;
+	{
+		this->y = 2;
+		break;
+	}
 	case 'd':
 	case 'D':
-		return 3;
+	{
+		this->y = 3;
+		break;
+	}
 	case 'e':
 	case 'E':
-		return 4;
+	{
+		this->y = 4;
+		break;
+	}
 	case 'f':
 	case 'F':
-		return 5;
+	{
+		this->y = 5;
+		break;
+	}
 	case 'g':
 	case 'G':
-		return 6;
+	{
+		this->y = 6;
+		break;
+	}
 	case 'h':
 	case 'H':
-		return 7;
-	default:
-		return -1;
+	{
+		this->y = 7;
+		break;
 	}
-	return -1;
+	default:
+		this->y = -1;
+	}
 }

@@ -585,7 +585,6 @@ void Gameboard::swapCoordsMove(int fromX, int fromY, int toX, int toY)
 
 void Gameboard::validateInput(int& fromX, int& fromY, int& toX, int& toY, string player)
 {
-	Coord from, to;
 	int turn = 0;
 	if (player == "white")
 		turn = 1;
@@ -596,6 +595,10 @@ void Gameboard::validateInput(int& fromX, int& fromY, int& toX, int& toY, string
 	cin >> from;
 	cout << "Player " << turn << " enter coordinates where you want to move:\n"; // Player choses position to move to
 	cin >> to;
+	fromX = from.getX();
+	fromY = from.getY();
+	toX = to.getX();
+	toY = to.getY();
 	while (!validateBorders(fromX, fromY, toX, toY)) // validate borders
 	{
 		cout << "Out of borders! Enter again!\n";
@@ -604,10 +607,8 @@ void Gameboard::validateInput(int& fromX, int& fromY, int& toX, int& toY, string
 		cout << "To:\n";
 		cin >> to;
 	}
-	fromX = from.getX();
-	fromY = from.getY();
-	toX = to.getX();
-	toY = to.getY();
+	from.setCoords(-1, -1);
+	to.setCoords(-1, -1);
 }
 
 bool Gameboard::attackOrMove(int fromX, int fromY, int toX, int toY, string player)
@@ -736,8 +737,8 @@ void Gameboard::play()
 {
 	int fromX, fromY, toX, toY;
 	string white = "white", black = "black";
-	//fillBoard();
-	fillTestBoard();
+	fillBoard();
+	//fillTestBoard();
 	for (int i = 0;; i++)
 	{
 		system("cls");
