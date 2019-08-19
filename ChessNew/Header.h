@@ -5,6 +5,7 @@
 #include<vector>
 #include<math.h>
 #include<Windows.h>
+#include<conio.h>
 #define LINE cout << "________________________________________\n"
 
 using namespace std;
@@ -20,12 +21,23 @@ public:
 	int getX() const;
 	int getY() const;
 	bool operator==(Coord& other);
-	friend istream& operator>>(istream& in, Coord& coord);
-	void switchCoord();
 private:
 	int x;
 	int y;
-	char yC;
+};
+
+class Cursor {
+public:
+	Cursor();
+	Cursor(int x, int y);
+	int x = 5;
+	int y = 2;
+	void setX(int x);
+	void setY(int y);
+	void setCoords(int x, int y);
+	int getX() const;
+	int getY() const;
+	void resetCursor();
 };
 
 enum CELL_FIGURE
@@ -206,6 +218,7 @@ public:
 	void fillBoard(); // main board
 	void fillTestBoard(); // test board for tests
 	void printBoard();
+	void printBoard(int x, int y);
 	string getColor(int x, int y) const;
 	Figure* getFigure(int x, int y) const;
 	Coord getWhiteKing() const;
@@ -221,6 +234,7 @@ public:
 	void swapCoordsAttack(int fromX, int fromY, int toX, int toY); // ok
 	void swapCoordsMove(int fromX, int fromY, int toX, int toY); // ok
 	void validateInput(int& fromX, int& fromY, int& toX, int& toY, string player); // ok
+	void selectFigure(int& x, int& y);
 	bool attackOrMove(int fromX, int fromY, int toX, int toY, string player); //ok
 	bool tryTakeOnMove(int fromX, int fromY, int toX, int toY, string player); // ok
 	void play(); // ok
@@ -260,3 +274,4 @@ bool validateHorizontalAttack(Gameboard* g, int fromX, int fromY, int toX, int t
 bool validateVerticalAttack(Gameboard* g, int fromX, int fromY, int toX, int toY);
 bool validateDiagonalAttack(Gameboard* g, int fromX, int fromY, int toX, int toY);
 bool validateOutOfRange(int x, int y);
+void gotoxy(Cursor &c);

@@ -120,6 +120,7 @@
   <ItemGroup>
     <ClCompile Include="Bishop.cpp" />
     <ClCompile Include="Coord.cpp" />
+    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="Figure.cpp" />
     <ClCompile Include="Funcs.cpp" />
     <ClCompile Include="Gameboard.cpp" />

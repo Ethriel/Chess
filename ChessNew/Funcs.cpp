@@ -1,21 +1,5 @@
 #include"Header.h"
 
-istream& operator>>(istream& in, Coord & coord)
-{
-	in >> coord.yC;
-	in >> coord.x;
-	while (!cin.good())
-	{
-		in.clear();
-		in.ignore();
-		cout << "Re-enter second coordinate! Must be a number\n";
-		in >> coord.x;
-	}
-	coord.switchCoord();
-	coord.x--;
-	return in;
-}
-
 bool validateHorizontal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 {
 	CELL_FIGURE whatOnCell;
@@ -291,4 +275,11 @@ bool validateOutOfRange(int x, int y)
 	if (x < 0 || y < 0 || x > 7 || y > 7)
 		return true;
 	return false;
+}
+
+void gotoxy(Cursor &c)
+{
+	COORD pos = { c.x,c.y };
+	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(output, pos);
 }

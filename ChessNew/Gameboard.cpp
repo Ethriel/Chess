@@ -30,88 +30,74 @@ void Gameboard::fillBoard()
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			// space
-			if (i >= 2 && i < 6)
+			if (i >= 2 && i < 6) // space
 			{
 				board[i][j] = new Space("space", "space", '*', 0, -1, false);
 				spaces.push_back(Coord(i, j));
 			}
-			// white pawns
-			else if (i == 6)
+			else if (i == 6) // white pawns
 			{
 				board[i][j] = new Pawn("pawn", "white", 'P', 2, 0, false);
 				white.push_back(Coord(i, j));
 			}
-			// black pawns
-			else if (i == 1)
+			else if (i == 1) // black pawns
 			{
 				board[i][j] = new Pawn("pawn", "black", 'p', 2, 7, false);
 				black.push_back(Coord(i, j));
 			}
-			// white rooks
-			else if ((i == 7 && j == 0) || (i == 7 && j == 7))
+			else if ((i == 7 && j == 0) || (i == 7 && j == 7)) // white rooks
 			{
 				board[i][j] = new Rook("rook", "white", 'R', 8, -1, false);
 				white.push_back(Coord(i, j));
 			}
-			// black rooks
-			else if ((i == 0 && j == 0) || (i == 0 && j == 7))
+			else if ((i == 0 && j == 0) || (i == 0 && j == 7)) // black rooks
 			{
 				board[i][j] = new Rook("rook", "black", 'r', 8, -1, false);
 				black.push_back(Coord(i, j));
 			}
-			// white knights
-			else if ((i == 7 && j == 1) || (i == 7 && j == 6))
+			else if ((i == 7 && j == 1) || (i == 7 && j == 6)) // white knights
 			{
 				board[i][j] = new Knight("knight", "white", 'N', 8, -1, false);
 				white.push_back(Coord(i, j));
 			}
-			// black knights
-			else if ((i == 0 && j == 1) || (i == 0 && j == 6))
+			else if ((i == 0 && j == 1) || (i == 0 && j == 6)) // black knights
 			{
 				board[i][j] = new Knight("knight", "black", 'n', 8, -1, false);
 				black.push_back(Coord(i, j));
 			}
-			// white bishops
-			else if ((i == 7 && j == 2) || (i == 7 && j == 5))
+			else if ((i == 7 && j == 2) || (i == 7 && j == 5)) // white bishops
 			{
 				board[i][j] = new Bishop("bishop", "white", 'B', 8, -1, false);
 				white.push_back(Coord(i, j));
 			}
-			// black bishops
-			else if ((i == 0 && j == 2) || (i == 0 && j == 5))
+			else if ((i == 0 && j == 2) || (i == 0 && j == 5)) // black bishops
 			{
 				board[i][j] = new Bishop("knight", "black", 'b', 8, -1, false);
 				black.push_back(Coord(i, j));
 			}
-			// white king
-			else if (i == 7 && j == 4)
+			else if (i == 7 && j == 4) // white king
 			{
 				board[i][j] = new King("king", "white", 'K', 1, -1, false);
 				white.push_back(Coord(i, j));
 				whiteKing.setCoords(i, j);
 			}
-			// black king
-			else if (i == 0 && j == 4)
+			else if (i == 0 && j == 4) // black king
 			{
 				board[i][j] = new King("king", "black", 'k', 1, -1, false);
 				black.push_back(Coord(i, j));
 				blackKing.setCoords(i, j);
 			}
-			// white queen
-			else if (i == 7 && j == 3)
+			else if (i == 7 && j == 3) // white queen
 			{
 				board[i][j] = new Queen("queen", "white", 'Q', 1, -1, false);
 				white.push_back(Coord(i, j));
 			}
-			// black queen
-			else if (i == 0 && j == 3)
+			else if (i == 0 && j == 3) // black queen
 			{
 				board[i][j] = new Queen("queen", "black", 'q', 1, -1, false);
 				black.push_back(Coord(i, j));
 			}
-			// set coords
-			board[i][j]->setFrom(i, j);
+			board[i][j]->setFrom(i, j); // set coords
 		}
 	}
 	for (int i = 0; i < 8; i++)
@@ -229,6 +215,43 @@ void Gameboard::printBoard()
 				SetConsoleTextAttribute(hConsole, 15);
 			if (board[i][j]->getColor() == "space")
 				SetConsoleTextAttribute(hConsole, 10);
+			cout << setw(4) << board[i][j]->getSymb();
+			SetConsoleTextAttribute(hConsole, 14);
+			cout << "|";
+		}
+		cout << endl;
+		cout << "__________________________________________\n";
+	}
+	cout << endl;
+	cout << endl;
+	SetConsoleTextAttribute(hConsole, 15);
+}
+
+void Gameboard::printBoard(int x, int y)
+{
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (i == 0 && j == 0)
+			{
+				SetConsoleTextAttribute(hConsole, 14);
+				cout << "     A    B    C    D    E    F    G    H\n";
+				cout << "__________________________________________\n";
+			}
+			if (j == 0)
+			{
+				SetConsoleTextAttribute(hConsole, 14);
+				cout << i + 1 << "|";
+			}
+			if (board[i][j]->getColor() == "black")
+				SetConsoleTextAttribute(hConsole, 12);
+			if (board[i][j]->getColor() == "white")
+				SetConsoleTextAttribute(hConsole, 15);
+			if (board[i][j]->getColor() == "space")
+				SetConsoleTextAttribute(hConsole, 10);
+			if(i==x && j == y)
+				SetConsoleTextAttribute(hConsole, 13);
 			cout << setw(4) << board[i][j]->getSymb();
 			SetConsoleTextAttribute(hConsole, 14);
 			cout << "|";
@@ -585,30 +608,93 @@ void Gameboard::swapCoordsMove(int fromX, int fromY, int toX, int toY)
 
 void Gameboard::validateInput(int& fromX, int& fromY, int& toX, int& toY, string player)
 {
+	fromX = 0, fromY = 0, toX = 0, toY = 0;
+	Cursor curs;
 	int turn = 0;
 	if (player == "white")
 		turn = 1;
 	if (player == "black")
 		turn = 2;
-	char fromYc, toYc;
-	cout << "Player " << turn << " enter coordinates of your figure:\n"; // Player selects a figure
-	cin >> from;
-	cout << "Player " << turn << " enter coordinates where you want to move:\n"; // Player choses position to move to
-	cin >> to;
-	fromX = from.getX();
-	fromY = from.getY();
-	toX = to.getX();
-	toY = to.getY();
+	cout << "Player " << turn << " select cell to move from\n"; // Player selects a figure
+	selectFigure(fromX, fromY);
+	white;
+	cout << "Player " << turn << " select cell to move to\n"; // Player choses position to move to
+	selectFigure(toX, toY);
 	while (!validateBorders(fromX, fromY, toX, toY)) // validate borders
 	{
+		fromX = 0, fromY = 0, toX = 0, toY = 0;
 		cout << "Out of borders! Enter again!\n";
 		cout << "From:\n";
-		cin >> from;
+		selectFigure(fromX, fromY);
 		cout << "To:\n";
-		cin >> to;
+		selectFigure(toX, toY);
 	}
-	from.setCoords(-1, -1);
-	to.setCoords(-1, -1);
+	white;
+	black;
+}
+
+void Gameboard::selectFigure(int& x, int& y)
+{
+	Cursor curs; // start position of a cursor
+	char select, direction; // selected figure and direction of cursor's move
+	gotoxy(curs);
+	while (true)
+	{
+		while (!_kbhit());
+			direction = _getch();
+		if (direction == 77) // right
+		{
+			curs.x += 5;
+			gotoxy(curs);
+			y += 1;
+			select = _getch();
+			if (select == 32)
+			{
+				system("cls");
+				printBoard(x, y);
+				return;
+			}
+		}
+		else if (direction == 75) // left
+		{
+			curs.x -= 5;
+			gotoxy(curs);
+			y -= 1;
+			select = _getch();
+			if (select == 32)
+			{
+				system("cls");
+				printBoard(x, y);
+				return;
+			}
+		}
+		else if (direction == 80) // down
+		{
+			curs.y += 2;
+			gotoxy(curs);
+			x += 1;
+			select = _getch();
+			if (select == 32)
+			{
+				system("cls");
+				printBoard(x, y);
+				return;
+			}
+		}
+		else if (direction == 72) // up
+		{
+			curs.y -= 2;
+			gotoxy(curs);
+			x -= 1;
+			select = _getch();
+			if (select == 32)
+			{
+				system("cls");
+				printBoard(x, y);
+				return;
+			}
+		}
+	}
 }
 
 bool Gameboard::attackOrMove(int fromX, int fromY, int toX, int toY, string player)
@@ -735,18 +821,17 @@ bool Gameboard::tryTakeOnMove(int fromX, int fromY, int toX, int toY, string pla
 
 void Gameboard::play()
 {
-	int fromX, fromY, toX, toY;
+	int fromX = 0, fromY = 0, toX = 0, toY = 0;
 	string white = "white", black = "black";
 	fillBoard();
-	//fillTestBoard();
 	for (int i = 0;; i++)
 	{
 		system("cls");
 		printBoard();
-		if (i % 2 == 0)
+		if (i % 2 == 0) // player 1
 		{
-			validateInput(fromX, fromY, toX, toY, white);
-			if (!attackOrMove(fromX, fromY, toX, toY, white))
+			validateInput(fromX, fromY, toX, toY, white); // select move
+			if (!attackOrMove(fromX, fromY, toX, toY, white)) // move
 			{
 				cout << "Invalid move!\n";
 				system("pause");
@@ -754,9 +839,9 @@ void Gameboard::play()
 				continue;
 			}
 			else
-				validateAnyStates(fromX, fromY, toX, toY, toX, white);
+				validateAnyStates(fromX, fromY, toX, toY, toX, white); // check for anything
 		}
-		else
+		else // player 2
 		{
 			validateInput(fromX, fromY, toX, toY, black);
 			if (!attackOrMove(fromX, fromY, toX, toY, black))
@@ -1036,8 +1121,6 @@ bool Gameboard::stalemate(string player)
 	string opponent;
 	int attX = 0, attY = 0, defX = 0, defY = 0, emX = 0, emY = 0; // tmp vars
 	int cantMove = 0; // quantity of figures that can't move
-	Figure* fig;
-	Figure* attc;
 	if (player == "white")
 	{
 		attacker = black;
