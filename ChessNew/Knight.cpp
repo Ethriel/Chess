@@ -12,7 +12,7 @@ Knight::~Knight()
 {
 }
 
-CELL_FIGURE Knight::chekCell(int toX, int toY, string type)
+CELL_FIGURE Knight::chekCell(string type)
 {
 	if (type == "space")
 		return EMPTY;

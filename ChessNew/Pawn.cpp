@@ -4,7 +4,7 @@ Pawn::Pawn()
 {
 }
 
-Pawn::Pawn(string name, string color, char symb, int moves, int limit, bool hasMoved): Figure(name, color, symb, moves, limit, hasMoved)
+Pawn::Pawn(string name, string color, char symb, int moves, int limit, bool hasMoved) : Figure(name, color, symb, moves, limit, hasMoved)
 {
 }
 
@@ -12,7 +12,7 @@ Pawn::~Pawn()
 {
 }
 
-CELL_FIGURE Pawn::chekCell(int toX, int toY, string type)
+CELL_FIGURE Pawn::chekCell(string type)
 {
 	if (type == "space")
 		return EMPTY;
@@ -93,7 +93,7 @@ bool Pawn::validateMove(Gameboard * g)
 			{
 				fig = g->getFigure(i, fromY);
 				nextColor = g->getColor(i - 1, fromY);
-				whatOnCell = fig->chekCell(i - 1, fromY, nextColor);
+				whatOnCell = fig->chekCell(nextColor);
 				if (whatOnCell == FRIEND)
 					break;
 				else if (whatOnCell == ENEMY)
@@ -122,7 +122,7 @@ bool Pawn::validateMove(Gameboard * g)
 			{
 				fig = g->getFigure(i, fromY);
 				nextColor = g->getColor(i + 1, fromY);
-				whatOnCell = fig->chekCell(i + 1, fromY, nextColor);
+				whatOnCell = fig->chekCell(nextColor);
 				if (whatOnCell == FRIEND)
 					break;
 				else if (whatOnCell == ENEMY)
@@ -169,7 +169,7 @@ bool Pawn::validateMove(Gameboard * g, int toX, int toY)
 			{
 				fig = g->getFigure(i, fromY);
 				nextColor = g->getColor(i - 1, fromY);
-				whatOnCell = fig->chekCell(i - 1, fromY, nextColor);
+				whatOnCell = fig->chekCell(nextColor);
 				if (whatOnCell == FRIEND)
 					break;
 				else if (whatOnCell == ENEMY)
@@ -198,7 +198,7 @@ bool Pawn::validateMove(Gameboard * g, int toX, int toY)
 			{
 				fig = g->getFigure(i, fromY);
 				nextColor = g->getColor(i + 1, fromY);
-				whatOnCell = fig->chekCell(i + 1, fromY, nextColor);
+				whatOnCell = fig->chekCell(nextColor);
 				if (whatOnCell == FRIEND)
 					break;
 				else if (whatOnCell == ENEMY)

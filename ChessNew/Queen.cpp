@@ -12,7 +12,7 @@ Queen::~Queen()
 {
 }
 
-CELL_FIGURE Queen::chekCell(int toX, int toY, string type)
+CELL_FIGURE Queen::chekCell(string type)
 {
 	if (type == "space")
 		return EMPTY;

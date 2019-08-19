@@ -12,7 +12,7 @@ Rook::~Rook()
 {
 }
 
-CELL_FIGURE Rook::chekCell(int toX, int toY, string type)
+CELL_FIGURE Rook::chekCell(string type)
 {
 	if (type == "space")
 		return EMPTY;

@@ -271,7 +271,7 @@ bool Gameboard::validateBorders(int fromX, int fromY, int toX, int toY)
 
 void Gameboard::fillKingPossMove(vector<Coord>& kingPossMoves, int kingX, int kingY) // adds only empty cells
 {
-	if(!kingPossMoves.empty())
+	if (!kingPossMoves.empty())
 		kingPossMoves.clear();
 	string type;
 	CELL_FIGURE figure;
@@ -283,15 +283,15 @@ void Gameboard::fillKingPossMove(vector<Coord>& kingPossMoves, int kingX, int ki
 	if (!(y < 0 || y > 7))
 	{
 		type = board[x][y]->getColor();
-		figure = board[x][y]->chekCell(x, y, type);
-		if(figure == EMPTY)
+		figure = board[x][y]->chekCell(type);
+		if (figure == EMPTY)
 			kingPossMoves.push_back(Coord(x, y));
 	}
 	y = kingY - 1;
 	if (!(y < 0 || y > 7))
 	{
 		type = board[x][y]->getColor();
-		figure = board[x][y]->chekCell(x, y, type);
+		figure = board[x][y]->chekCell(type);
 		if (figure == EMPTY)
 			kingPossMoves.push_back(Coord(x, y));
 	}
@@ -301,7 +301,7 @@ void Gameboard::fillKingPossMove(vector<Coord>& kingPossMoves, int kingX, int ki
 	if (!(x < 0 || x > 7))
 	{
 		type = board[x][y]->getColor();
-		figure = board[x][y]->chekCell(x, y, type);
+		figure = board[x][y]->chekCell(type);
 		if (figure == EMPTY)
 			kingPossMoves.push_back(Coord(x, y));
 	}
@@ -309,7 +309,7 @@ void Gameboard::fillKingPossMove(vector<Coord>& kingPossMoves, int kingX, int ki
 	if (!(x < 0 || x > 7))
 	{
 		type = board[x][y]->getColor();
-		figure = board[x][y]->chekCell(x, y, type);
+		figure = board[x][y]->chekCell(type);
 		if (figure == EMPTY)
 			kingPossMoves.push_back(Coord(x, y));
 	}
@@ -319,7 +319,7 @@ void Gameboard::fillKingPossMove(vector<Coord>& kingPossMoves, int kingX, int ki
 	if (!(y < 0 || y > 7 || x < 0 || x > 7))
 	{
 		type = board[x][y]->getColor();
-		figure = board[x][y]->chekCell(x, y, type);
+		figure = board[x][y]->chekCell(type);
 		if (figure == EMPTY)
 			kingPossMoves.push_back(Coord(x, y));
 	}
@@ -329,7 +329,7 @@ void Gameboard::fillKingPossMove(vector<Coord>& kingPossMoves, int kingX, int ki
 	if (!(y < 0 || y > 7 || x < 0 || x > 7))
 	{
 		type = board[x][y]->getColor();
-		figure = board[x][y]->chekCell(x, y, type);
+		figure = board[x][y]->chekCell(type);
 		if (figure == EMPTY)
 			kingPossMoves.push_back(Coord(x, y));
 	}
@@ -339,7 +339,7 @@ void Gameboard::fillKingPossMove(vector<Coord>& kingPossMoves, int kingX, int ki
 	if (!(y < 0 || y > 7 || x < 0 || x > 7))
 	{
 		type = board[x][y]->getColor();
-		figure = board[x][y]->chekCell(x, y, type);
+		figure = board[x][y]->chekCell(type);
 		if (figure == EMPTY)
 			kingPossMoves.push_back(Coord(x, y));
 	}
@@ -349,7 +349,7 @@ void Gameboard::fillKingPossMove(vector<Coord>& kingPossMoves, int kingX, int ki
 	if (!(y < 0 || y > 7 || x < 0 || x > 7))
 	{
 		type = board[x][y]->getColor();
-		figure = board[x][y]->chekCell(x, y, type);
+		figure = board[x][y]->chekCell(type);
 		if (figure == EMPTY)
 			kingPossMoves.push_back(Coord(x, y));
 	}
@@ -1190,7 +1190,7 @@ void Gameboard::validateAnyStates(int fromX, int fromY, int attX, int attY, int 
 			system("pause");
 			exit(0);
 		}
-		
+
 		if (stalemate(opponent))
 		{
 			system("cls");

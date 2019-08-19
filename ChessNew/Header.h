@@ -2,7 +2,6 @@
 #include<iostream>
 #include<iomanip>
 #include<string>
-#include<fstream>
 #include<vector>
 #include<math.h>
 #include<Windows.h>
@@ -40,7 +39,7 @@ public:
 	Figure();
 	Figure(string name, string color, char symb, int moves, int limit, bool hasMoved);
 	~Figure();
-	virtual CELL_FIGURE chekCell(int toX, int toY, string type) = 0;
+	virtual CELL_FIGURE chekCell(string type) = 0;
 	char getSymb() const;
 	string getColor() const;
 	string getName() const;
@@ -84,7 +83,7 @@ public:
 	Pawn();
 	Pawn(string name, string color, char symb, int moves, int limit, bool hasMoved);
 	~Pawn();
-	CELL_FIGURE chekCell(int toX, int toY, string type) override;
+	CELL_FIGURE chekCell(string type) override;
 	bool validateAttack(Gameboard* g) override;
 	bool validateAttack(Gameboard* g, int toX, int toY) override;
 	bool validateMove(Gameboard* g) override;
@@ -100,7 +99,7 @@ public:
 	Bishop();
 	Bishop(string name, string color, char symb, int moves, int limit, bool hasMoved);
 	~Bishop();
-	CELL_FIGURE chekCell(int toX, int toY, string type) override;
+	CELL_FIGURE chekCell(string type) override;
 	bool validateAttack(Gameboard* g);
 	bool validateAttack(Gameboard* g, int toX, int toY) override;
 	bool validateMove(Gameboard* g);
@@ -117,7 +116,7 @@ public:
 	Knight();
 	Knight(string name, string color, char symb, int moves, int limit, bool hasMoved);
 	~Knight();
-	CELL_FIGURE chekCell(int toX, int toY, string type) override;
+	CELL_FIGURE chekCell(string type) override;
 	bool validateAttack(Gameboard* g) override;
 	bool validateAttack(Gameboard* g, int toX, int toY) override;
 	bool validateMove(Gameboard* g) override;
@@ -134,7 +133,7 @@ public:
 	Rook();
 	Rook(string name, string color, char symb, int moves, int limit, bool hasMoved);
 	~Rook();
-	CELL_FIGURE chekCell(int toX, int toY, string type) override;
+	CELL_FIGURE chekCell(string type) override;
 	bool validateAttack(Gameboard* g) override;
 	bool validateAttack(Gameboard* g, int toX, int toY) override;
 	bool validateMove(Gameboard* g) override;
@@ -151,7 +150,7 @@ public:
 	Queen();
 	Queen(string name, string color, char symb, int moves, int limit, bool hasMoved);
 	~Queen();
-	CELL_FIGURE chekCell(int toX, int toY, string type) override;
+	CELL_FIGURE chekCell(string type) override;
 	bool validateAttack(Gameboard* g) override;
 	bool validateAttack(Gameboard* g, int toX, int toY) override;
 	bool validateMove(Gameboard* g) override;
@@ -168,7 +167,7 @@ public:
 	King();
 	King(string name, string color, char symb, int moves, int limit, bool hasMoved);
 	~King();
-	CELL_FIGURE chekCell(int toX, int toY, string type) override;
+	CELL_FIGURE chekCell(string type) override;
 	bool validateAttack(Gameboard* g) override;
 	bool validateAttack(Gameboard* g, int toX, int toY) override;
 	bool validateMove(Gameboard* g) override;
@@ -176,7 +175,7 @@ public:
 	bool validateCheck(Gameboard* g) override;
 	void fillWay(int fromX, int fromY, int toX, int toY) override;
 private:
-	
+
 };
 
 class Space : public Figure
@@ -185,7 +184,7 @@ public:
 	Space();
 	Space(string name, string color, char symb, int moves, int limit, bool hasMoved);
 	~Space();
-	CELL_FIGURE chekCell(int toX, int toY, string type) override;
+	CELL_FIGURE chekCell(string type) override;
 	bool validateAttack(Gameboard* g) override;
 	bool validateAttack(Gameboard* g, int toX, int toY) override;
 	bool validateMove(Gameboard* g) override;

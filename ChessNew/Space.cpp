@@ -12,7 +12,7 @@ Space::~Space()
 {
 }
 
-CELL_FIGURE Space::chekCell(int toX, int toY, string type)
+CELL_FIGURE Space::chekCell(string type)
 {
 	if (type == "space")
 		return EMPTY;

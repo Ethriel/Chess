@@ -12,7 +12,7 @@ King::~King()
 {
 }
 
-CELL_FIGURE King::chekCell(int toX, int toY, string type)
+CELL_FIGURE King::chekCell(string type)
 {
 	if (type == "space")
 		return EMPTY;

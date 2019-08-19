@@ -16,7 +16,7 @@ bool validateHorizontal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 		{
 			fig = g->getFigure(fromX, i);
 			nextColor = g->getColor(fromX, i - 1);
-			whatOnCell = fig->chekCell(fromX, i - 1, nextColor);
+			whatOnCell = fig->chekCell(nextColor);
 			if (whatOnCell == FRIEND)
 				break;
 			else if (whatOnCell == ENEMY)
@@ -32,7 +32,7 @@ bool validateHorizontal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 		{
 			fig = g->getFigure(fromX, i);
 			nextColor = g->getColor(fromX, i + 1);
-			whatOnCell = fig->chekCell(fromX, i + 1, nextColor);
+			whatOnCell = fig->chekCell(nextColor);
 			if (whatOnCell == FRIEND)
 				break;
 			else if (whatOnCell == ENEMY)
@@ -62,7 +62,7 @@ bool validateVertical(Gameboard* g, int fromX, int fromY, int toX, int toY)
 		{
 			fig = g->getFigure(i, fromY);
 			nextColor = g->getColor(i + 1, fromY);
-			whatOnCell = fig->chekCell(i + 1, fromY, nextColor);
+			whatOnCell = fig->chekCell(nextColor);
 			if (whatOnCell == FRIEND)
 				break;
 			else if (whatOnCell == ENEMY)
@@ -78,7 +78,7 @@ bool validateVertical(Gameboard* g, int fromX, int fromY, int toX, int toY)
 		{
 			fig = g->getFigure(i, fromY);
 			nextColor = g->getColor(i - 1, fromY);
-			whatOnCell = fig->chekCell(i - 1, fromY, nextColor);
+			whatOnCell = fig->chekCell(nextColor);
 			if (whatOnCell == FRIEND)
 				break;
 			else if (whatOnCell == ENEMY)
@@ -105,7 +105,7 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 	// from bot-left to top-right
 	if (fromX > toX && fromY < toY)
 	{
-		while ((checkX != toX && checkY != toY))
+		while (true)
 		{
 			if (validateOutOfRange(checkX, checkY))
 				break;
@@ -115,19 +115,21 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 			if (validateOutOfRange(nextX, nextY))
 				break;
 			nextColor = g->getColor(nextX, nextY);
-			whatOnCell = fig->chekCell(--checkX, ++checkY, nextColor);
+			whatOnCell = fig->chekCell(nextColor);
 			if (whatOnCell == FRIEND)
 				break;
 			else if (whatOnCell == ENEMY)
 				break;
 			else
 				counter++;
+			checkX--;
+			checkY++;
 		}
 	}
 	// from bot-right to top-left
 	else if (fromX > toX && fromY > toY)
 	{
-		while ((checkX != toX && checkY != toY))
+		while (true)
 		{
 			if (validateOutOfRange(checkX, checkY))
 				break;
@@ -137,19 +139,21 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 			if (validateOutOfRange(nextX, nextY))
 				break;
 			nextColor = g->getColor(nextX, nextY);
-			whatOnCell = fig->chekCell(--checkX, --checkY, nextColor);
+			whatOnCell = fig->chekCell(nextColor);
 			if (whatOnCell == FRIEND)
 				break;
 			else if (whatOnCell == ENEMY)
 				break;
 			else
 				counter++;
+			checkX--;
+			checkY--;
 		}
 	}
 	// from top-right to bot-left
 	else if (fromX < toX && fromY > toY)
 	{
-		while ((checkX != toX && checkY != toY))
+		while (true)
 		{
 			if (validateOutOfRange(checkX, checkY))
 				break;
@@ -159,19 +163,21 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 			if (validateOutOfRange(nextX, nextY))
 				break;
 			nextColor = g->getColor(nextX, nextY);
-			whatOnCell = fig->chekCell(++checkX, --checkY, nextColor);
+			whatOnCell = fig->chekCell(nextColor);
 			if (whatOnCell == FRIEND)
 				break;
 			else if (whatOnCell == ENEMY)
 				break;
 			else
 				counter++;
+			checkX++;
+			checkY--;
 		}
 	}
 	// from top-left to bot-right
 	else if (fromX < toX && fromY < toY)
 	{
-		while ((checkX != toX && checkY != toY))
+		while (true)
 		{
 			if (validateOutOfRange(checkX, checkY))
 				break;
@@ -181,13 +187,15 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 			if (validateOutOfRange(nextX, nextY))
 				break;
 			nextColor = g->getColor(nextX, nextY);
-			whatOnCell = fig->chekCell(++checkX, ++checkY, nextColor);
+			whatOnCell = fig->chekCell(nextColor);
 			if (whatOnCell == FRIEND)
 				break;
 			else if (whatOnCell == ENEMY)
 				break;
 			else
 				counter++;
+			checkX++;
+			checkY--;
 		}
 	}
 	if (counter == abs(fromX - toX))
