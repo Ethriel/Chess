@@ -97,6 +97,8 @@ bool Rook::validateCheck(Gameboard * g)
 
 void Rook::fillWay(int fromX, int fromY, int toX, int toY)
 {
+	if (!this->way.empty())
+		this->way.clear();
 	int lX, lY, bX, bY, fillX, fillY;
 	int wayX[8];
 	int wayY[8];

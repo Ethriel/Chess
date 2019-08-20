@@ -150,7 +150,8 @@ void Gameboard::fillTestBoard()
 			}
 			board[i][j]->setFrom(i, j);
 			*/
-			
+			// TEST ATTACKS
+			/*
 			if ((i == 3 && j == 0) || (i == 3 && j == 2) || (i == 1 && j == 5))
 			{
 				board[i][j] = new Pawn("pawn", "black", 'p', 1, 7, false);
@@ -184,7 +185,77 @@ void Gameboard::fillTestBoard()
 				spaces.push_back(Coord(i, j));
 			}
 			board[i][j]->setFrom(i, j);
-			
+			*/
+			// TEST CHECK
+			/*
+			if ((i == 0 && j == 3) || (i == 0 && j == 5))
+			{
+				board[i][j] = new Pawn("pawn", "black", 'p', 1, 7, false);
+				black.push_back(Coord(i, j));
+			}
+			else if (i == 1 && j == 3)
+			{
+				board[i][j] = new Rook("rook", "black", 'r', 8, -1, false);
+				black.push_back(Coord(i, j));
+			}
+			else if (i == 6 && j == 5)
+			{
+				board[i][j] = new Rook("rook", "white", 'R', 8, -1, false);
+				white.push_back(Coord(i, j));
+			}
+			else if (i == 0 && j == 4)
+			{
+				board[i][j] = new King("king", "black", 'k', 1, -1, false);
+				black.push_back(Coord(i, j));
+				blackKing.setCoords(i, j);
+			}
+			else if (i == 7 && j == 4)
+			{
+				board[i][j] = new King("king", "white", 'K', 1, -1, false);
+				white.push_back(Coord(i, j));
+				whiteKing.setCoords(i, j);
+			}
+			else
+			{
+				board[i][j] = new Space("space", "space", '*', 0, -1, false);
+				spaces.push_back(Coord(i, j));
+			}
+			board[i][j]->setFrom(i, j);
+			*/
+			// TEST CHECKMATE
+			if ((i == 0 && j == 3) || (i == 0 && j == 5))
+			{
+				board[i][j] = new Pawn("pawn", "black", 'p', 1, 7, false);
+				black.push_back(Coord(i, j));
+			}
+			else if ((i == 6 && j == 3) || (i == 6 && j == 5))
+			{
+				board[i][j] = new Rook("rook", "white", 'R', 8, -1, false);
+				white.push_back(Coord(i, j));
+			}
+			else if (i == 0 && j == 4)
+			{
+				board[i][j] = new King("king", "black", 'k', 1, -1, false);
+				black.push_back(Coord(i, j));
+				blackKing.setCoords(i, j);
+			}
+			else if (i == 7 && j == 4)
+			{
+				board[i][j] = new King("king", "white", 'K', 1, -1, false);
+				white.push_back(Coord(i, j));
+				whiteKing.setCoords(i, j);
+			}
+			else if (i == 7 && j == 5)
+			{
+				board[i][j] = new Queen("queen", "white", 'Q', 1, -1, false);
+				white.push_back(Coord(i, j));
+			}
+			else
+			{
+				board[i][j] = new Space("space", "space", '*', 0, -1, false);
+				spaces.push_back(Coord(i, j));
+			}
+			board[i][j]->setFrom(i, j);
 		}
 	}
 	for (int i = 0; i < 8; i++)
@@ -879,12 +950,22 @@ bool Gameboard::checkMate(int attPosX, int attPosY)
 	string attColor = board[attPosX][attPosY]->getColor(); // attacker color
 	string attName = board[attPosX][attPosY]->getName(); // attacker name
 	vector<Coord> way; // attacker way
+	int kingX = 0, kingY = 0;
 	if (attColor == "white")
+	{
+		kingX = blackKing.getX();
+		kingY = blackKing.getY();
 		color = "black";
+	}
 	if (attColor == "black")
+	{
+		kingX = whiteKing.getX();
+		kingY = whiteKing.getY();
 		color = "white";
+	}
 	if (check(attPosX, attPosY)) // if check - validate possible variants to save king
 	{
+		board[attPosX][attPosY]->fillWay(attPosX, attPosY, kingX, kingY);
 		way = board[attPosX][attPosY]->getWay();
 		system("cls");
 		printBoard();
@@ -917,19 +998,21 @@ bool Gameboard::canAttackerBeTaken(int attX, int attY)
 {
 	string attColor = board[attX][attY]->getColor();
 	string currColor;
+	vector<Coord> defender;
+	int defX = 0, defY = 0;
+	Figure* def;
 	Gameboard* g = this;
-	for (int i = 0; i < 8; i++)
+	if (attColor == "white")
+		defender = black;
+	if (attColor == "black")
+		defender = white;
+	for (int i = 0; i < defender.size(); i++)
 	{
-		for (int j = 0; j < 8; j++)
-		{
-			currColor = board[i][j]->getColor();
-			if (currColor == attColor) // skip enemies
-				continue;
-			if (currColor == "space") // skip spaces
-				continue;
-			if (board[i][j]->validateAttack(g, attX, attY)) // try to validate attack on attacker
-				return true;
-		}
+		defX = defender[i].getX();
+		defY = defender[i].getY();
+		def = board[defX][defY];
+		if (def->validateAttack(g, attX, attY))
+			return true;
 	}
 	return false;
 }
@@ -949,6 +1032,8 @@ bool Gameboard::canKingBeCovered(vector<Coord> attWay, string attacker)
 	{
 		defX = defender[i].getX();
 		defY = defender[i].getY();
+		if (board[defX][defY]->getName() == "king")
+			continue;
 		for (int j = 0; j < attWay.size(); j++) // get attacker's way position coordinates
 		{
 			attX = attWay[j].getX();

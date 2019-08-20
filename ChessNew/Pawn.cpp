@@ -245,7 +245,7 @@ bool Pawn::validateCheck(Gameboard * g)
 
 void Pawn::fillWay(int fromX, int fromY, int toX, int toY)
 {
-	if(!this->way.empty())
+	if (!this->way.empty())
 		this->way.clear();
 	int lX, lY, bX, bY;
 	int wayX[8];

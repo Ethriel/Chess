@@ -97,7 +97,8 @@ bool Bishop::validateCheck(Gameboard * g)
 
 void Bishop::fillWay(int fromX, int fromY, int toX, int toY)
 {
-	this->way.clear();
+	if (!this->way.empty())
+		this->way.clear();
 	int lX, lY, bX, bY;
 	int wayX[8];
 	int wayY[8];

@@ -83,5 +83,3 @@ void King::fillWay(int fromX, int fromY, int toX, int toY)
 {
 	return;
 }
-
-

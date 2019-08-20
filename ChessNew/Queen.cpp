@@ -97,6 +97,8 @@ bool Queen::validateCheck(Gameboard * g)
 
 void Queen::fillWay(int fromX, int fromY, int toX, int toY)
 {
+	if (!this->way.empty())
+		this->way.clear();
 	int lX, lY, bX, bY;
 	int wayX[8];
 	int wayY[8];
@@ -117,14 +119,14 @@ void Queen::fillWay(int fromX, int fromY, int toX, int toY)
 	}
 	if (lY == bY) // vertical way
 	{
-		for (int i = 0; i < (bX - lY - 1); i++)
-		{
-			wayY[i] = lY;
-			waySize++;
-		}
 		for (int i = lX; i < bX - 1; i++)
 		{
 			wayX[i] = i + 1;
+			waySize++;
+		}
+		for (int i = 0; i < waySize; i++)
+		{
+			wayY[i] = lY;
 		}
 	}
 	if ((bX - lX) == (bY - lY)) // diagonal
