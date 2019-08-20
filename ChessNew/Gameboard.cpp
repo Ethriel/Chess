@@ -115,7 +115,7 @@ void Gameboard::fillTestBoard()
 		for (int j = 0; j < 8; j++)
 		{
 			// STALEMATE TEST
-			/*
+			
 			if ((i == 4 && j == 1) || (i == 3 && j == 2) || (i == 2 && j == 7))
 			{
 				board[i][j] = new Pawn("pawn", "white", 'P', 1, 0, false);
@@ -149,7 +149,8 @@ void Gameboard::fillTestBoard()
 				spaces.push_back(Coord(i, j));
 			}
 			board[i][j]->setFrom(i, j);
-			*/
+			
+			/*
 			if ((i == 3 && j == 0) || (i == 3 && j == 2) || (i == 1 && j == 5))
 			{
 				board[i][j] = new Pawn("pawn", "black", 'p', 1, 7, false);
@@ -183,6 +184,7 @@ void Gameboard::fillTestBoard()
 				spaces.push_back(Coord(i, j));
 			}
 			board[i][j]->setFrom(i, j);
+			*/
 		}
 	}
 	for (int i = 0; i < 8; i++)
@@ -1197,15 +1199,6 @@ void Gameboard::validateAnyStates(int fromX, int fromY, int attX, int attY, int 
 	if (!check(attX, attY)) // is there a check?
 	{
 		if (stalemate(player)) // no? stalemate during player's move?
-		{
-			system("cls");
-			printBoard();
-			cout << "Stalemate. Game over\n";
-			system("pause");
-			exit(0);
-		}
-
-		if (stalemate(opponent)) // opponent is in a stalemate situation?
 		{
 			system("cls");
 			printBoard();

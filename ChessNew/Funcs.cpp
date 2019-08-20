@@ -105,7 +105,7 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 	// from bot-left to top-right
 	if (fromX > toX && fromY < toY)
 	{
-		while (true)
+		while (checkX != toX || checkY != toY)
 		{
 			if (validateOutOfRange(checkX, checkY))
 				break;
@@ -129,7 +129,7 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 	// from bot-right to top-left
 	else if (fromX > toX && fromY > toY)
 	{
-		while (true)
+		while (checkX != toX || checkY != toY)
 		{
 			if (validateOutOfRange(checkX, checkY))
 				break;
@@ -153,7 +153,7 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 	// from top-right to bot-left
 	else if (fromX < toX && fromY > toY)
 	{
-		while (true)
+		while (checkX != toX || checkY != toY)
 		{
 			if (validateOutOfRange(checkX, checkY))
 				break;
@@ -177,7 +177,7 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 	// from top-left to bot-right
 	else if (fromX < toX && fromY < toY)
 	{
-		while (true)
+		while (checkX != toX || checkY != toY)
 		{
 			if (validateOutOfRange(checkX, checkY))
 				break;
