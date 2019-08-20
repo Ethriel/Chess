@@ -245,14 +245,15 @@ bool Pawn::validateCheck(Gameboard * g)
 
 void Pawn::fillWay(int fromX, int fromY, int toX, int toY)
 {
-	this->way.clear();
+	if(!this->way.empty())
+		this->way.clear();
 	int lX, lY, bX, bY;
 	int wayX[8];
 	int wayY[8];
 	int waySize = 0;
 	int x = 0, y = 0;
 	this->setLessBigCoord(fromX, fromY, toX, toY, lX, lY, bX, bY);
-	for (int i = lX, j = 0; i < bX - 1; i++)
+	for (int i = lX, j = 0; i < bX; i++)
 	{
 		wayX[j] = i + 1;
 		waySize++;
