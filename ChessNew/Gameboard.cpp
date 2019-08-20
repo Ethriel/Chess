@@ -645,7 +645,8 @@ void Gameboard::selectFigure(int& x, int& y)
 			curs.x += 5;
 			gotoxy(curs);
 			y += 1;
-			resetCursX(curs.x);
+			if (resetCursX(curs.x))
+				gotoxy(curs);
 			resetCoord(y);
 			select = _getch();
 			if (select == 32)
@@ -660,7 +661,8 @@ void Gameboard::selectFigure(int& x, int& y)
 			curs.x -= 5;
 			gotoxy(curs);
 			y -= 1;
-			resetCursX(curs.x);
+			if (resetCursX(curs.x))
+				gotoxy(curs);
 			resetCoord(y);
 			select = _getch();
 			if (select == 32)
@@ -675,7 +677,8 @@ void Gameboard::selectFigure(int& x, int& y)
 			curs.y += 2;
 			gotoxy(curs);
 			x += 1;
-			resetCursY(curs.y);
+			if(resetCursY(curs.y))
+				gotoxy(curs);
 			resetCoord(x);
 			select = _getch();
 			if (select == 32)
@@ -690,7 +693,8 @@ void Gameboard::selectFigure(int& x, int& y)
 			curs.y -= 2;
 			gotoxy(curs);
 			x -= 1;
-			resetCursY(curs.y);
+			if (resetCursY(curs.y))
+				gotoxy(curs);
 			resetCoord(x);
 			select = _getch();
 			if (select == 32)

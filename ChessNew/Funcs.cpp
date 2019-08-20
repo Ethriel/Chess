@@ -273,19 +273,33 @@ void gotoxy(Cursor &c)
 	SetConsoleCursorPosition(output, pos);
 }
 
-void resetCursX(int& x)
+bool resetCursX(int& x)
 {
 	if (x < 5)
+	{
 		x = 5;
+		return true;
+	}
 	if (x > 40)
+	{
 		x = 40;
+		return true;
+	}
+	return false;
 }
-void resetCursY(int& y)
+bool resetCursY(int& y)
 {
 	if (y < 2)
+	{
 		y = 2;
+		return true;
+	}
 	if (y > 16)
+	{
 		y = 16;
+		return true;
+	}
+	return false;
 }
 
 void resetCoord(int & c)
