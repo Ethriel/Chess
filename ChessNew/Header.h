@@ -21,6 +21,7 @@ public:
 	int getX() const;
 	int getY() const;
 	bool operator==(Coord& other);
+	bool operator!=(Coord& other);
 private:
 	int x;
 	int y;
@@ -273,3 +274,6 @@ bool validateVerticalAttack(Gameboard* g, int fromX, int fromY, int toX, int toY
 bool validateDiagonalAttack(Gameboard* g, int fromX, int fromY, int toX, int toY);
 bool validateOutOfRange(int x, int y);
 void gotoxy(Cursor &c);
+void resetCursX(int& x);
+void resetCursY(int& y);
+void resetCoord(int& c);

@@ -6,11 +6,9 @@ bool validateHorizontal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 	Figure* fig;
 	int counter = 0;
 	string nextColor;
-	// if not a horizontal direction
-	if (fromX != toX)
+	if (fromX != toX) // if not a horizontal direction
 		return false;
-	// from right to left
-	if (fromY > toY)
+	if (fromY > toY) // from right to left
 	{
 		for (int i = fromY; i > toY; i--)
 		{
@@ -25,8 +23,7 @@ bool validateHorizontal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 				counter++;
 		}
 	}
-	// from left to right
-	else if (fromY < toY)
+	else if (fromY < toY) // from left to right
 	{
 		for (int i = fromY; i < toY; i++)
 		{
@@ -52,11 +49,9 @@ bool validateVertical(Gameboard* g, int fromX, int fromY, int toX, int toY)
 	Figure* fig;
 	int counter = 0;
 	string nextColor;
-	// if not a vertical direction
-	if (fromY != toY)
+	if (fromY != toY) // if not a vertical direction
 		return false;
-	// from top to bot
-	if (fromX < toX)
+	if (fromX < toX) // from top to bot
 	{
 		for (int i = fromX; i < toX; i++)
 		{
@@ -71,8 +66,7 @@ bool validateVertical(Gameboard* g, int fromX, int fromY, int toX, int toY)
 				counter++;
 		}
 	}
-	// from bot to top
-	else if (fromX > toX)
+	else if (fromX > toX) // from bot to top
 	{
 		for (int i = fromX; i > toX; i--)
 		{
@@ -102,8 +96,7 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 	Figure* fig;
 	int checkX = fromX, checkY = fromY;
 	int nextX = 0, nextY = 0;
-	// from bot-left to top-right
-	if (fromX > toX && fromY < toY)
+	if (fromX > toX && fromY < toY) // from bot-left to top-right
 	{
 		while (checkX != toX || checkY != toY)
 		{
@@ -126,8 +119,7 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 			checkY++;
 		}
 	}
-	// from bot-right to top-left
-	else if (fromX > toX && fromY > toY)
+	else if (fromX > toX && fromY > toY) // from bot-right to top-left
 	{
 		while (checkX != toX || checkY != toY)
 		{
@@ -150,8 +142,7 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 			checkY--;
 		}
 	}
-	// from top-right to bot-left
-	else if (fromX < toX && fromY > toY)
+	else if (fromX < toX && fromY > toY) // from top-right to bot-left
 	{
 		while (checkX != toX || checkY != toY)
 		{
@@ -174,8 +165,7 @@ bool validateDiagonal(Gameboard* g, int fromX, int fromY, int toX, int toY)
 			checkY--;
 		}
 	}
-	// from top-left to bot-right
-	else if (fromX < toX && fromY < toY)
+	else if (fromX < toX && fromY < toY) // from top-left to bot-right
 	{
 		while (checkX != toX || checkY != toY)
 		{
@@ -241,18 +231,17 @@ bool validateVerticalAttack(Gameboard* g, int fromX, int fromY, int toX, int toY
 
 bool validateDiagonalAttack(Gameboard* g, int fromX, int fromY, int toX, int toY)
 {
-	Figure* fig = g->getFigure(fromX, fromY);
 	// DIAGONAL CHECK: if way free to the point BEFORE destination
 	// diagonal left-right-top
 	if (fromX > toX && fromY < toY && (abs(fromX - toX) == abs(fromY - toY)))
 	{
-		if (validateDiagonal(g, fromX, fromY, toX - 1, toY + 1))
+		if (validateDiagonal(g, fromX, fromY, toX + 1, toY - 1))
 			return true;
 	}
 	// diagonal right-left-bot
 	else if (fromX < toX && fromY > toY && (abs(fromX - toX) == abs(fromY - toY)))
 	{
-		if (validateDiagonal(g, fromX, fromY, toX + 1, toY - 1))
+		if (validateDiagonal(g, fromX, fromY, toX - 1, toY + 1))
 			return true;
 	}
 	// diagonal right-left-top
@@ -282,4 +271,27 @@ void gotoxy(Cursor &c)
 	COORD pos = { c.x,c.y };
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(output, pos);
+}
+
+void resetCursX(int& x)
+{
+	if (x < 5)
+		x = 5;
+	if (x > 40)
+		x = 40;
+}
+void resetCursY(int& y)
+{
+	if (y < 2)
+		y = 2;
+	if (y > 16)
+		y = 16;
+}
+
+void resetCoord(int & c)
+{
+	if (c < 0)
+		c = 0;
+	if (c > 7)
+		c = 7;
 }

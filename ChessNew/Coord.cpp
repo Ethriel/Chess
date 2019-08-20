@@ -42,3 +42,8 @@ bool Coord::operator==(Coord & other)
 {
 	return (x == other.x && y == other.y);
 }
+
+bool Coord::operator!=(Coord & other)
+{
+	return (this->x != other.x && this->y != other.y);
+}

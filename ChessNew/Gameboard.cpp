@@ -115,7 +115,7 @@ void Gameboard::fillTestBoard()
 		for (int j = 0; j < 8; j++)
 		{
 			// STALEMATE TEST
-			
+			/*
 			if ((i == 4 && j == 1) || (i == 3 && j == 2) || (i == 2 && j == 7))
 			{
 				board[i][j] = new Pawn("pawn", "white", 'P', 1, 0, false);
@@ -149,8 +149,8 @@ void Gameboard::fillTestBoard()
 				spaces.push_back(Coord(i, j));
 			}
 			board[i][j]->setFrom(i, j);
+			*/
 			
-			/*
 			if ((i == 3 && j == 0) || (i == 3 && j == 2) || (i == 1 && j == 5))
 			{
 				board[i][j] = new Pawn("pawn", "black", 'p', 1, 7, false);
@@ -184,7 +184,7 @@ void Gameboard::fillTestBoard()
 				spaces.push_back(Coord(i, j));
 			}
 			board[i][j]->setFrom(i, j);
-			*/
+			
 		}
 	}
 	for (int i = 0; i < 8; i++)
@@ -611,7 +611,6 @@ void Gameboard::swapCoordsMove(int fromX, int fromY, int toX, int toY)
 void Gameboard::validateInput(int& fromX, int& fromY, int& toX, int& toY, string player)
 {
 	fromX = 0, fromY = 0, toX = 0, toY = 0;
-	Cursor curs;
 	int turn = 0;
 	if (player == "white")
 		turn = 1;
@@ -619,7 +618,6 @@ void Gameboard::validateInput(int& fromX, int& fromY, int& toX, int& toY, string
 		turn = 2;
 	cout << "Player " << turn << " select cell to move from\n"; // Player selects a figure
 	selectFigure(fromX, fromY);
-	white;
 	cout << "Player " << turn << " select cell to move to\n"; // Player choses position to move to
 	selectFigure(toX, toY);
 	while (!validateBorders(fromX, fromY, toX, toY)) // validate borders
@@ -631,13 +629,11 @@ void Gameboard::validateInput(int& fromX, int& fromY, int& toX, int& toY, string
 		cout << "To:\n";
 		selectFigure(toX, toY);
 	}
-	white;
-	black;
 }
 
 void Gameboard::selectFigure(int& x, int& y)
 {
-	Cursor curs; // start position of a cursor
+	Cursor curs;
 	char select, direction; // selected figure and direction of cursor's move
 	gotoxy(curs);
 	while (true)
@@ -649,12 +645,14 @@ void Gameboard::selectFigure(int& x, int& y)
 			curs.x += 5;
 			gotoxy(curs);
 			y += 1;
+			resetCursX(curs.x);
+			resetCoord(y);
 			select = _getch();
 			if (select == 32)
 			{
 				system("cls");
 				printBoard(x, y);
-				return;
+				break;
 			}
 		}
 		else if (direction == 75) // left
@@ -662,12 +660,14 @@ void Gameboard::selectFigure(int& x, int& y)
 			curs.x -= 5;
 			gotoxy(curs);
 			y -= 1;
+			resetCursX(curs.x);
+			resetCoord(y);
 			select = _getch();
 			if (select == 32)
 			{
 				system("cls");
 				printBoard(x, y);
-				return;
+				break;
 			}
 		}
 		else if (direction == 80) // down
@@ -675,12 +675,14 @@ void Gameboard::selectFigure(int& x, int& y)
 			curs.y += 2;
 			gotoxy(curs);
 			x += 1;
+			resetCursY(curs.y);
+			resetCoord(x);
 			select = _getch();
 			if (select == 32)
 			{
 				system("cls");
 				printBoard(x, y);
-				return;
+				break;
 			}
 		}
 		else if (direction == 72) // up
@@ -688,12 +690,14 @@ void Gameboard::selectFigure(int& x, int& y)
 			curs.y -= 2;
 			gotoxy(curs);
 			x -= 1;
+			resetCursY(curs.y);
+			resetCoord(x);
 			select = _getch();
 			if (select == 32)
 			{
 				system("cls");
 				printBoard(x, y);
-				return;
+				break;
 			}
 		}
 	}
@@ -856,7 +860,6 @@ void Gameboard::play()
 			else
 				validateAnyStates(fromX, fromY, toX, toY, toX, black);
 		}
-
 	}
 }
 
