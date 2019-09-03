@@ -31,12 +31,12 @@ bool Pawn::validateAttack(Gameboard * g)
 	string figColor = this->color;
 	if (figColor == "white")
 	{
-		if (abs(fromX - toX) == 1 && (abs(fromY - toY) == 1))
+		if (abs(fromX - toX) == 1 && (abs(fromY - toY) == 1) && (fromX > toX))
 			return true;
 	}
 	if (figColor == "black")
 	{
-		if (abs(fromX - toX) == 1 && abs(toY - fromY) == 1)
+		if (abs(fromX - toX) == 1 && abs(toY - fromY) == 1 && (fromX < toX))
 			return true;
 	}
 	this->fillWay(fromX, fromY, toX, toY);
@@ -50,12 +50,12 @@ bool Pawn::validateAttack(Gameboard * g, int toX, int toY)
 	string figColor = this->color;
 	if (figColor == "white")
 	{
-		if (abs(fromX - toX) == 1 && (abs(fromY - toY) == 1))
+		if (abs(fromX - toX) == 1 && (abs(fromY - toY) == 1) && (fromX > toX))
 			return true;
 	}
 	if (figColor == "black")
 	{
-		if (abs(fromX - toX) == 1 && abs(toY - fromY) == 1)
+		if (abs(fromX - toX) == 1 && abs(toY - fromY) == 1 && (fromX < toX))
 			return true;
 	}
 	this->fillWay(fromX, fromY, toX, toY);
